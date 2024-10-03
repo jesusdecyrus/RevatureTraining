@@ -1,9 +1,9 @@
-package com.revature;
+package com.revature.intro;
 
 /**
  * Week 1: Monday (9/30/24)
  */
-public class Launcher {
+public class HelloWorld {
 
     /**
      * Main method
