@@ -6,10 +6,12 @@ package com.revature.models;
  */
 public class Pokemon {
 
+    /** Pokemon ID */
+    private int pokemonID;
     /** Pokemon name */
     private String name;
-    /** Pokemon's trainer */
-    private String trainer;
+    /** Pokemon's trainer ID */
+    private int trainerID;
     /** Pokemon's type */
     private String type;
     /** Pokemon's level */
@@ -21,20 +23,30 @@ public class Pokemon {
 
     /**
      * Pokemon Constructor
+     * @param pokemonID the Pokemon's ID
      * @param name the Pokemon's name
-     * @param trainer the Pokemon's trainer
+     * @param trainerID the Pokemon's trainer ID
      * @param type the Pokemon's type
      * @param level the Pokemon's level
      * @param gender the Pokemon's gender
      * @param isShiny the Pokemon's shiny check
      */
-    public Pokemon(String name, String trainer, String type, int level, int gender, boolean isShiny) {
+    public Pokemon(int pokemonID, String name, int trainerID, String type, int level, int gender, boolean isShiny) {
+        setPokemonID(pokemonID);
         setName(name);
-        setTrainer(trainer);
+        setTrainerID(trainerID);
         setType(type);
         setLevel(level);
         setGender(gender);
         setShiny(isShiny);
+    }
+
+    /**
+     * Returns the Pokemon's ID
+     * @return the Pokemon's ID
+     */
+    public int getPokemonID() {
+        return pokemonID;
     }
 
     /**
@@ -46,11 +58,11 @@ public class Pokemon {
     }
 
     /**
-     * Returns the Pokemon's trainer
-     * @return the Pokemon's trainer
+     * Returns the Pokemon's trainer ID
+     * @return the Pokemon's trainer ID
      */
-    public String getTrainer() {
-        return trainer;
+    public int getTrainerID() {
+        return trainerID;
     }
 
     /**
@@ -86,6 +98,14 @@ public class Pokemon {
     }
 
     /**
+     * Sets the Pokemon's ID
+     * @param pokemonID the Pokemon's ID
+     */
+    public void setPokemonID(int pokemonID) {
+        this.pokemonID = pokemonID;
+    }
+
+    /**
      * Sets the Pokemon's name
      * @param name the Pokemon's name
      */
@@ -94,11 +114,11 @@ public class Pokemon {
     }
 
     /**
-     * Sets the Pokemon's trainer
-     * @param trainer the Pokemon's trainer
+     * Sets the Pokemon's trainer ID
+     * @param trainerID the Pokemon's trainer ID
      */
-    public void setTrainer(String trainer) {
-        this.trainer = trainer;
+    public void setTrainerID(int trainerID) {
+        this.trainerID = trainerID;
     }
 
     /**
