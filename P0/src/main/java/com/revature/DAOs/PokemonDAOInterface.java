@@ -2,6 +2,8 @@ package com.revature.DAOs;
 
 import com.revature.models.Pokemon;
 
+import java.util.ArrayList;
+
 /**
  * Pokemon Data Access Object Interface
  * @author Cyrus De Jesus
@@ -9,14 +11,14 @@ import com.revature.models.Pokemon;
 public interface PokemonDAOInterface {
 
     /**
-     * GETS a Pokemon using the Pokemon's ID
+     * GET a Pokemon using the Pokemon's ID
      * @param pokemonID the Pokemon's ID
      * @return the Pokemon with the matching ID
      */
     Pokemon getPokemonByID(int pokemonID);
 
     /**
-     * UPDATES a Pokemon's trainer using the Pokemon's and trainer's ID
+     * UPDATE a Pokemon's trainer using the Pokemon's and trainer's ID
      * @param pokemonID the Pokemon's ID
      * @param trainerID the trainer's ID
      * @return the updated Pokemon
@@ -29,4 +31,10 @@ public interface PokemonDAOInterface {
      * @return the inserted Pokemon
      */
     Pokemon insertPokemon(Pokemon pokemon);
+
+    /**
+     * GET all Pokemon in the table
+     * @return an array list of all Pokemon in the table
+     */
+    ArrayList<Pokemon> getAllPokemon();
 }

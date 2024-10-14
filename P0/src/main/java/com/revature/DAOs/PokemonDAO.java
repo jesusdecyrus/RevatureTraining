@@ -3,10 +3,8 @@ package com.revature.DAOs;
 import com.revature.models.Pokemon;
 import com.revature.utils.ConnectionUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Pokemon Data Access Object
@@ -15,13 +13,12 @@ import java.sql.SQLException;
 public class PokemonDAO implements PokemonDAOInterface {
 
     /**
-     * GETS a Pokemon using the Pokemon's ID
+     * GET a Pokemon using the Pokemon's ID
      * @param pokemonID the Pokemon's ID
      * @return the Pokemon with the matching ID
      */
     @Override
     public Pokemon getPokemonByID(int pokemonID) {
-
         // Communicate with the database
         try (Connection connection = ConnectionUtil.getConnection()) {
             // SQL query
@@ -33,7 +30,7 @@ public class PokemonDAO implements PokemonDAOInterface {
             // Set the parameters for the query with question marks
             ps.setInt(1, pokemonID);
 
-            // Execute query
+            // Execute get
             ResultSet rs = ps.executeQuery();
 
             // Extract the data from result set
@@ -51,20 +48,42 @@ public class PokemonDAO implements PokemonDAOInterface {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("CONNECTION FAILED :(");
+            System.out.println("Error getting Pokemon");
         }
 
         return null;
     }
 
     /**
-     * UPDATES a Pokemon's trainer using the Pokemon's and trainer's ID
+     * UPDATE a Pokemon's trainer using the Pokemon's and trainer's ID
      * @param pokemonID the Pokemon's ID
      * @param trainerID the trainer's ID
      * @return the updated Pokemon
      */
     @Override
     public Pokemon updatePokemonTrainer(int pokemonID, int trainerID) {
+        // Communicate with the database
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            // SQL query
+            String query = "UPDATE pokemon SET trainerID = ? WHERE pokemonID = ?";
+
+            // Prepared statement
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // Set the parameters for the query with question marks
+            ps.setInt(1, trainerID);
+            ps.setInt(2, pokemonID);
+
+            // Execute update
+            ps.executeUpdate();
+
+            // Return the updated Pokemon
+            return getPokemonByID(pokemonID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error updating Pokemon");
+        }
+
         return null;
     }
 
@@ -76,6 +95,69 @@ public class PokemonDAO implements PokemonDAOInterface {
      */
     @Override
     public Pokemon insertPokemon(Pokemon pokemon) {
+        // Connect with the database
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            // SQL query
+            String query = "INSERT INTO pokemon (pokemonID, name, trainerID, type, level, gender, isShiny) " +
+                           "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            // Prepared statement
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, pokemon.getPokemonID());
+            ps.setString(2, pokemon.getName());
+            ps.setInt(3, pokemon.getTrainerID());
+            ps.setString(4, pokemon.getType());
+            ps.setInt(5, pokemon.getLevel());
+            ps.setString(6, String.valueOf(pokemon.getGender()));
+            ps.setBoolean(7, pokemon.isShiny());
+            // Execute insert
+            ps.executeUpdate();
+
+            return pokemon;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error inserting Pokemon");
+        }
+
+        return null;
+    }
+
+    /**
+     * GET all Pokemon in the table
+     *
+     * @return an array list of all Pokemon in the table
+     */
+    @Override
+    public ArrayList<Pokemon> getAllPokemon() {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            // SQL query
+            String query = "SELECT * FROM pokemon";
+            // Statement since there is no parameters
+            Statement s = connection.createStatement();
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // Loop through ResultSet
+            ArrayList<Pokemon> allPokemon = new ArrayList<>();
+            ResultSet rs = s.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("pokemonID");
+                String name = rs.getString("name");
+                int trainerID = rs.getInt("trainerID");
+                String type = rs.getString("type");
+                int level = rs.getInt("level");
+                char gender = rs.getString("gender").charAt(0);
+                boolean isShiny = rs.getBoolean("isShiny");
+
+                // Create the Pokemon and add to the list
+                Pokemon p =  new Pokemon(id, name, trainerID, type, level, gender, isShiny);
+                allPokemon.add(p);
+            }
+
+            return allPokemon;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error getting all Pokemon");
+        }
+
         return null;
     }
 }

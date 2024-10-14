@@ -17,7 +17,7 @@ public class Pokemon {
     /** Pokemon's level */
     private int level;
     /** Pokemon's gender */
-    private int gender;
+    private char gender;
     /** Pokemon's shiny check */
     private boolean isShiny;
 
@@ -31,7 +31,7 @@ public class Pokemon {
      * @param gender the Pokemon's gender
      * @param isShiny the Pokemon's shiny check
      */
-    public Pokemon(int pokemonID, String name, int trainerID, String type, int level, int gender, boolean isShiny) {
+    public Pokemon(int pokemonID, String name, int trainerID, String type, int level, char gender, boolean isShiny) {
         setPokemonID(pokemonID);
         setName(name);
         setTrainerID(trainerID);
@@ -85,7 +85,7 @@ public class Pokemon {
      * Returns the Pokemon's gender
      * @return the Pokemon's gender
      */
-    public int getGender() {
+    public char getGender() {
         return gender;
     }
 
@@ -141,7 +141,7 @@ public class Pokemon {
      * Sets the Pokemon's gender
      * @param gender the Pokemon's gender
      */
-    public void setGender(int gender) {
+    public void setGender(char gender) {
         this.gender = gender;
     }
 
@@ -151,5 +151,16 @@ public class Pokemon {
      */
     public void setShiny(boolean shiny) {
         isShiny = shiny;
+    }
+
+    @Override
+    public String toString() {
+        return name.toUpperCase() + "\n" +
+                "ID: " + pokemonID + "\n" +
+                "Trainer ID: " + trainerID + "\n" +
+                "Type: " + type + "\n" +
+                "Level: " + level + "\n" +
+                "Gender: " + gender + "\n" +
+                "Shiny: " + isShiny + "\n";
     }
 }

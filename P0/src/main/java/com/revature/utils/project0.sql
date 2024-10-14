@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS trainers
+DROP TABLE IF EXISTS pokemon
+
 -- Trainers Table
 CREATE TABLE trainers(
  trainerID serial PRIMARY KEY,
@@ -16,10 +19,10 @@ CREATE TABLE pokemon(
  name TEXT NOT NULL,
  trainerID INT,
  type TEXT NOT NULL,
- level INT NOT NULL,
- gender CHAR(1) NOT NULL,
+ level INT NOT NULL CHECK (level >= 1 AND level <= 100),
+ gender CHAR(1) NOT NULL CHECK (gender IN ('M', 'F')),
  isShiny BOOLEAN NOT NULL,
- FOREIGN KEY (trainerID) REFERENCES trainers(trainerID)
+ FOREIGN KEY (trainerID) REFERENCES trainers(trainerID) ON DELETE CASCADE
 );
 INSERT INTO pokemon(name, trainerID, type, level, gender, isShiny)
 VALUES	('Bulbasaur', 1, 'Grass/Poison', 100, 'M', FALSE),
