@@ -33,9 +33,9 @@ public class ConnectionUtil {
         // Returns the Connection object using credentials
         return DriverManager.getConnection(url, username, password);
 
-        //These variables holding my DB credentials are hidden in my Environment Variables
-        //Run -> Edit Configurations -> Application -> Then create key/value pairs for these credentials
-        //Right click Launcher and run it if you don't see these options (creates an application config)
+        // These variables holding my DB credentials are hidden in my Environment Variables
+        // Run -> Edit Configurations -> Application -> Then create key/value pairs for these credentials
+        // Right click Application and run it if you don't see these options (creates an application config)
 
         //  String url = System.getenv("URL");
         //  String username = System.getenv("USERNAME");
