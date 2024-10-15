@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pokemon</title>
+    <title>Pokemon Collector</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./javascript/index.js"></script>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <nav class="navPanel">
+        <h1>Pokemon Collector</h1>
+    </nav>
+
+    <section class="buttons">
+        <button onclick="randomEncounter()">Random Encounter</button>
+        <button>View Owned Pokemon</button>
+        <button onclick="viewAllPokemon()">View All Pokemon</button>
+    </section>
+
+    <main class="allPokemon" id="allPokemon">
+        <!-- Dynamic Content Here -->
+    </main>
 </body>
 </html>

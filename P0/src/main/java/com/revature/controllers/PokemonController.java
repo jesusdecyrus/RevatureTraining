@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Controller for Pokemon DAO where HTTP Requests are sent
+ * @author Cyrus De Jesus
  */
 public class PokemonController {
 

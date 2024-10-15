@@ -1,11 +1,13 @@
 package com.revature;
 
+import com.revature.controllers.KantoPokemonController;
 import com.revature.controllers.PokemonController;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 
 /**
  * Runs the program
+ * @author Cyrus De Jesus
  */
 public class Application {
 
@@ -24,6 +26,10 @@ public class Application {
         app.get("/pokemonTrainer/{trainerID}", pc.getPostPokemonByTrainer); // GET all pokemon matching trainer ID
         app.post("/addPokemon", pc.postPokemon); // POST a pokemon
         app.put("/updatePokemonTrainer/{pokemonID}/{trainerID}", pc.putPokemon); // PUT or UPDATE a pokemon
+
+        // RANDOM POKEMON CONTROLLER
+        KantoPokemonController kpc = new KantoPokemonController();
+        app.get("/randomPokemon", kpc.getRandomPokemon); // GET a random pokemon
 
         // TRAINER CONTROLLER
 

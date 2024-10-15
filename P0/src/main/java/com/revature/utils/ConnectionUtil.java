@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 /**
  * Manages and establishes our database connection
+ * @author Cyrus De Jesus
  */
 public class ConnectionUtil {
 

@@ -1,0 +1,104 @@
+html {
+  background: beige;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.navPanel {
+  background-color: rgb(249, 116, 116);  
+  text-align: center;
+  font-size: large;
+  padding: 15px;
+  border-bottom: 5px solid rgb(75, 62, 62);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.allPokemon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.onePokemon {
+  height: 190px;
+  width: 200px;
+  padding: 25px;
+  text-align: center;
+  border: 3px solid rgb(75, 62, 62);
+  border-radius: 120px;
+  margin: 10px;
+  transition: 0.5s ease;
+}
+
+.onePokemon a {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.onePokemon p {
+  font-family: inherit;
+  font-size: small;
+  margin: 12px;
+}
+
+.reButtons {
+  padding-top: 100px;
+  padding-left: 20px;
+}
+
+.catchButton {
+  height: 40px;
+  width: 70px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: rgb(36, 215, 36);
+  border-color: rgb(36, 215, 36);
+  border-radius: 10px;
+}
+
+.catchButton:hover {
+  background-color: rgb(42, 197, 42);
+  border-color: rgb(42, 197, 42);
+}
+
+.runButton {
+  height: 40px;
+  width: 70px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: rgb(247, 12, 12);
+  border-color: rgb(247, 12, 12);
+  border-radius: 10px;
+}
+
+.runButton:hover {
+  background-color: rgb(226, 14, 14);
+  border-color: rgb(226, 14, 14);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buttons button {
+  font-family: inherit;
+  height: 50px;
+  padding: 15px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: rgb(249, 116, 116);
+  border-color: rgb(249, 116, 116);
+  border-radius: 10px;
+}
+
+.buttons button:hover {
+  background-color: rgb(243, 104, 104);
+  border-color: rgb(243, 104, 104);
+}
