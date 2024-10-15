@@ -9,7 +9,7 @@ CREATE TABLE trainers(
 INSERT INTO trainers(firstName, lastName, username, password)
 VALUES  ('Trainer1', 'LastOne', 'trainerOne', 'password'),
 	    ('Trainer2', 'LastTwo', 'trainerTwo', 'password'),
-	    ('Trainer3', 'LastTwo', 'trainerTwo', 'password'),
+	    ('Trainer3', 'LastThree', 'trainerThree', 'password'),
 	    ('Cyrus', 'De Jesus', 'cdejesus', 'password'),
 	    ('Benjamin', 'Petruzziello', 'bpetruzziello', 'password');
 
