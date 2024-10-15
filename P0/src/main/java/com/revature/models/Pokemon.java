@@ -22,6 +22,11 @@ public class Pokemon {
     private boolean isShiny;
 
     /**
+     * Default Constructor
+     */
+    public Pokemon(){}
+
+    /**
      * Pokemon Constructor
      * @param pokemonID the Pokemon's ID
      * @param name the Pokemon's name
@@ -151,6 +156,15 @@ public class Pokemon {
      */
     public void setShiny(boolean shiny) {
         isShiny = shiny;
+    }
+
+
+    /**
+     * Return whether the Pokemon object is valid
+     * @return true if valid; otherwise false
+     */
+    public boolean checkValidity() {
+        return name != null && !name.isEmpty() && type != null && !type.isEmpty() && level > 0 && level <= 100 && gender != '\0';
     }
 
     @Override

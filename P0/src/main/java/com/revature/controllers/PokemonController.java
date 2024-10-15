@@ -12,20 +12,73 @@ import java.util.ArrayList;
 public class PokemonController {
 
     /** Pokemon DAO */
-    PokemonDAO controller = new PokemonDAO();
+    PokemonDAO pDAO = new PokemonDAO();
+
+    /**
+     * Handle GET requests for a Pokemon
+     */
+    public Handler getPokemonByID = ctx -> {
+        // Extract path parameter from HTTP Request URL
+        int id = Integer.parseInt(ctx.pathParam("pokemonID"));
+
+        // Find it in the database
+        Pokemon p = pDAO.getPokemonByID(id);
+
+        // Response OK
+        ctx.json(p);
+        ctx.status(200);
+    };
 
     /**
      * Handle GET requests for all Pokemon
      */
     public Handler getAllPokemon = ctx -> {
         // Store all pokemon into an array list
-        ArrayList<Pokemon> pokemonList = controller.getAllPokemon();
+        ArrayList<Pokemon> pokemonList = pDAO.getAllPokemon();
 
-        // Convert array list to json
+        // Convert array list to JSON
         ctx.json(pokemonList);
 
         // Response OK
         ctx.status(200);
+    };
+
+    /**
+     * Handle POST requests for a Pokemon
+     */
+    public Handler postPokemon = ctx -> {
+        // Convert JSON to a Java class
+        Pokemon p = ctx.bodyAsClass(Pokemon.class);
+
+        // Error check before inserting
+        if (p.checkValidity()) {
+            Pokemon pokemon = pDAO.insertPokemon(p);
+            ctx.status(201);
+            ctx.json(pokemon);
+        }
+        else {
+            ctx.result("Invalid Pokemon.");
+            ctx.status(400);
+        }
+    };
+
+    /**
+     * Handle PUT requests for a Pokemon
+     */
+    public Handler putPokemon = ctx -> {
+        // Extract path parameter from HTTP Request URL
+        int pokemonID = Integer.parseInt(ctx.pathParam("pokemonID"));
+        int trainerID = Integer.parseInt(ctx.pathParam("trainerID"));
+
+        if (pokemonID > 0 && trainerID > 0) {
+            Pokemon pokemon = pDAO.updatePokemonTrainer(pokemonID, trainerID);
+            ctx.status(200);
+            ctx.json(pokemon);
+        }
+        else {
+            ctx.result("Invalid Pokemon ID or Trainer ID.");
+            ctx.status(400);
+        }
     };
 
 }
