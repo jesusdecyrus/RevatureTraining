@@ -30,6 +30,30 @@ public class PokemonController {
     };
 
     /**
+     * Handle GET requests for all pokemon matching trainer ID
+     */
+    public Handler getPostPokemonByTrainer = ctx -> {
+        int trainerID = Integer.parseInt(ctx.pathParam("trainerID"));
+
+        // Store all pokemon into an array list
+        ArrayList<Pokemon> pokemonList = pDAO.getAllPokemon();
+
+        // Traverse and store all trainer pokemon
+        ArrayList<Pokemon> trainerPokemon = new ArrayList<>();
+        for (Pokemon p : pokemonList) {
+            if (p.getTrainerID() == trainerID) {
+                trainerPokemon.add(p);
+            }
+        }
+
+        // Convert array list to JSON
+        ctx.json(trainerPokemon);
+
+        // Response OK
+        ctx.status(200);
+    };
+
+    /**
      * Handle GET requests for all Pokemon
      */
     public Handler getAllPokemon = ctx -> {

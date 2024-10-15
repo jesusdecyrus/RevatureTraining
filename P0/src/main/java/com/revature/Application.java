@@ -21,6 +21,7 @@ public class Application {
         PokemonController pc = new PokemonController();
         app.get("/pokemon/{pokemonID}", pc.getPokemonByID); // GET a pokemon
         app.get("/pokemon", pc.getAllPokemon); // GET all pokemon
+        app.get("/pokemonTrainer/{trainerID}", pc.getPostPokemonByTrainer); // GET all pokemon matching trainer ID
         app.post("/addPokemon", pc.postPokemon); // POST a pokemon
         app.put("/updatePokemonTrainer/{pokemonID}/{trainerID}", pc.putPokemon); // PUT or UPDATE a pokemon
 
