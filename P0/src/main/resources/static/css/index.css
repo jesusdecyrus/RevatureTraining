@@ -31,7 +31,6 @@ body {
   border: 3px solid rgb(75, 62, 62);
   border-radius: 120px;
   margin: 10px;
-  transition: 0.5s ease;
 }
 
 .onePokemon a {
