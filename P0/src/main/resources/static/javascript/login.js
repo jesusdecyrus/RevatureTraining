@@ -12,10 +12,10 @@ function signup() {
     const inputContainer = document.getElementById('inputContainer');
     inputContainer.innerHTML = `
       <form class="signup">
-        <p>First Name</p><input type="text"> 
-        <p>Last Name</p><input type="text"> 
-        <p>Username</p><input type="text">
-        <p>Password</p><input type="password"> 
+        <p>First Name</p><input type="text"/> 
+        <p>Last Name</p><input type="text"/> 
+        <p>Username</p><input type="text"/>
+        <p>Password</p><input type="password"/> 
         <div>
             <button class="btn" onclick="login()">Login</button>
             <button class="btn" onclick="signup()">Sign Up</button>
@@ -43,8 +43,8 @@ function login() {
     const inputContainer = document.getElementById('inputContainer');
     inputContainer.innerHTML = `
       <form class="login">
-        <p>Username</p><input type="text">
-        <p>Password</p><input type="password"> 
+        <p>Username</p><input type="text"/>
+        <p>Password</p><input type="password"/> 
         <div>
             <button class="btn" onclick="login()">Login</button>
             <button class="btn" onclick="signup()">Sign Up</button>
