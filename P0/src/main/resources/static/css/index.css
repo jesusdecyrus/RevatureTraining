@@ -101,3 +101,86 @@ body {
   background-color: rgb(243, 104, 104);
   border-color: rgb(243, 104, 104);
 }
+
+.userContainer {
+  position: absolute;
+  background-color: beige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+}
+
+.inputContainer {
+  position: relative;
+  background-color: rgb(249, 116, 116);
+  width: 50%;
+  height: 55%;
+  border: 5px solid rgb(75, 62, 62);
+  border-radius: 50px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  margin-top: 50px;
+}
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+.login p {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.signup p {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.login input {
+  border: 1px solid rgb(75, 62, 62);
+  border-radius: 30px;
+  padding: 10px;
+  width: 70%;
+  height: 20px;
+  font-size: 15px;
+}
+
+.signup input {
+  border: 1px solid rgb(75, 62, 62);
+  border-radius: 30px;
+  padding: 10px;
+  width: 70%;
+  height: 10px;
+  font-size: 12px;
+}
+
+.btn {
+  font-family: inherit;
+  height: 50px;
+  width: max-content;
+  padding: 15px;
+  margin: 10px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(75, 62, 62);
+  border-color: rgb(75, 62, 62);
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.btn:hover {
+  background-color: rgb(55, 45, 45);
+  border-color: rgb(55, 45, 45);
+}

@@ -5,11 +5,26 @@
     <title>Pokemon Collector</title>
     <link rel="stylesheet" href="./css/index.css">
     <script src="./javascript/index.js"></script>
+    <script src="./javascript/login.js"></script>
 </head>
 <body>
     <nav class="navPanel">
         <h1>Pokemon Collector</h1>
     </nav>
+
+    <section class="userContainer">
+        <!-- Dynamic Content -->
+        <div class="inputContainer" id="inputContainer">
+            <form class="login">
+                <p>Username</p><input type="text"/>
+                <p>Password</p><input type="password"/>
+                <div>
+                    <button class="btn" onclick="login()">Login</button>
+                    <button class="btn" onclick="signup()">Sign Up</button>
+                </div>
+              </form>
+        </div>
+    </section>
 
     <section class="buttons">
         <button onclick="randomEncounter()">Random Encounter</button>
