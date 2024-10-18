@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pokemon Collector</title>
+    <title>Pokémon</title>
     <link rel="stylesheet" href="./css/index.css">
     <script src="./javascript/index.js"></script>
     <script src="./javascript/login.js"></script>
 </head>
 <body>
     <nav class="navPanel">
-        <h1>Pokemon Collector</h1>
+        <h1>Pokémon</h1>
     </nav>
 
-    <section class="userContainer">
+    <section class="userContainer" id="userContainer">
         <!-- Dynamic Content -->
         <div class="inputContainer" id="inputContainer">
             <form class="login">
-                <p>Username</p><input type="text"/>
-                <p>Password</p><input type="password"/>
+                <p>Username</p><input id="username" type="text"/>
+                <p>Password</p><input id="password" type="password"/>
                 <div>
-                    <button class="btn" onclick="login()">Login</button>
-                    <button class="btn" onclick="signup()">Sign Up</button>
+                    <button class="btn" onclick="login(event)">Login</button>
+                    <button class="btn" onclick="signup(event)">Sign Up</button>
                 </div>
-              </form>
+            </form>
         </div>
     </section>
 

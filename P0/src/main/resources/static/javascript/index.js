@@ -56,10 +56,10 @@ function catchPokemon() {
   clearAllPokemon();
 
   // HARD CODED CHANGE LATER
-  currentEncounterPokemon.trainerID = 1;
+  currentEncounterPokemon.trainerID = 4;
 
   // Communicate with Java
-  fetch('/addPokemon', {
+  fetch('/pokemon/add', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ function viewOwnedPokemon() {
   var trainerID = 1;
   
   // Communicate with Java
-  fetch('/pokemonTrainer/' + trainerID, {
+  fetch('/pokemon/trainer/' + trainerID, {
     method: 'GET'
   })
   .then(response => response.json())

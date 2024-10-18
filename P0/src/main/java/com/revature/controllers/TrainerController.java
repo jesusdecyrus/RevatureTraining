@@ -15,7 +15,12 @@ public class TrainerController {
     /** Trainer DAO */
     TrainerDao tDAO = new TrainerDao();
 
-    // HTTP Session
+    /** Current Logged In Trainer */
+    Trainer currentTrainer;
+
+    /**
+     * HTTP Session
+     */
     public static HttpSession session;
 
     /**
@@ -39,6 +44,13 @@ public class TrainerController {
             session.setAttribute("firstName", loggedInTrainer.getFirstName());
             session.setAttribute("lastName", loggedInTrainer.getLastName());
             session.setAttribute("username", loggedInTrainer.getUsername());
+
+            // Sets the current trainer
+            if (currentTrainer != null) {
+                if (!currentTrainer.getUsername().equals(loggedInTrainer.getUsername())) {
+                    currentTrainer = loggedInTrainer;
+                }
+            }
 
             // Success Message
             ctx.status(200);
