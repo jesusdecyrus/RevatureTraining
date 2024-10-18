@@ -106,7 +106,7 @@ public class PokemonDAO implements PokemonDAOInterface {
         try (Connection connection = ConnectionUtil.getConnection()) {
             // SQL query
             String query = "INSERT INTO pokemon (name, trainerID, type, level, gender, isShiny) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+                           "VALUES (?, ?, ?, ?, ?, ?)";
             // Prepared statement
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, pokemon.getName());

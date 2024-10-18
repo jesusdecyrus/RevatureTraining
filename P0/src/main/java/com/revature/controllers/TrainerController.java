@@ -51,4 +51,31 @@ public class TrainerController {
         }
     };
 
+    /**
+     * Handle POST requests for a Trainer (SIGN UP)
+     */
+    public Handler signUpHandler = ctx -> {
+        // Convert JSON to Java
+        Trainer t = ctx.bodyAsClass(Trainer.class);
+
+        // Error check before inserting
+        if (t.checkValidity()) {
+            Trainer trainer = tDAO.signup(t.getFirstName(), t.getLastName(), t.getUsername(), t.getPassword());
+
+            // Ensure that the trainer be inserted into the table
+            if (trainer != null) {
+                ctx.status(201);
+                ctx.json(trainer);
+            }
+            else {
+                ctx.result("Trainer Username Already Taken");
+                ctx.status(400);
+            }
+        }
+        else {
+            ctx.result("Invalid Trainer");
+            ctx.status(400);
+        }
+    };
+
 }

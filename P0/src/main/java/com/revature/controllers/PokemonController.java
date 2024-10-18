@@ -82,7 +82,7 @@ public class PokemonController {
             ctx.json(pokemon);
         }
         else {
-            ctx.result("Invalid Pokemon.");
+            ctx.result("Invalid Pokemon");
             ctx.status(400);
         }
     };
@@ -101,7 +101,7 @@ public class PokemonController {
             ctx.json(pokemon);
         }
         else {
-            ctx.result("Invalid Pokemon ID or Trainer ID.");
+            ctx.result("Invalid Pokemon ID or Trainer ID");
             ctx.status(400);
         }
     };

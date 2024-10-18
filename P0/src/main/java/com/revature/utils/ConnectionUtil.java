@@ -23,7 +23,7 @@ public class ConnectionUtil {
             Class.forName("org.postgresql.Driver"); //
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            System.out.println("problem occurred locating driver");
+            System.out.println("Problem occurred locating driver");
         }
 
         // Hardcoded credentials

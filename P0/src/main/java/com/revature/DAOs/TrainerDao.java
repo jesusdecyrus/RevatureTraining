@@ -52,4 +52,40 @@ public class TrainerDao implements TrainerDAOInterface {
         return null;
     }
 
+    /**
+     * POST a Trainer using the trainer's credentials (SIGN UP)
+     *
+     * @param firstName the trainer's first name
+     * @param lastName  the trainer's last name
+     * @param username  the trainer's username
+     * @param password  the trainer's password
+     * @return the created trainer
+     */
+    @Override
+    public Trainer signup(String firstName, String lastName, String username, String password) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            // SQL query
+            String query = "INSERT into trainer(firstName, lastName, username, password) " +
+                           "VALUES (?, ?, ?, ?)";
+
+            // Prepare Statement
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // Fill in the query parameters
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setString(3, username);
+            ps.setString(4, password);
+
+            // Execute and return the trainer
+            ps.executeUpdate();
+            return new Trainer(firstName, lastName, username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error posting trainer");
+        }
+
+        return null;
+    }
+
 }

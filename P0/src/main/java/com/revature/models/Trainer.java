@@ -91,6 +91,15 @@ public class Trainer {
     }
 
     /**
+     * Returns whether the trainer is a valid trainer
+     * @return true when the trainer is valid; otherwise, false
+     */
+    public boolean checkValidity() {
+        return firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty() &&
+               username != null && !username.isEmpty() && password != null && !password.isEmpty();
+    }
+
+    /**
      * Sets the trainer's password
      * @param password the trainer's password
      */
