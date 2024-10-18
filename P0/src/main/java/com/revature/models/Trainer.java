@@ -6,8 +6,6 @@ package com.revature.models;
  */
 public class Trainer {
 
-    /** The trainer's ID */
-    private int trainerID;
     /** The trainer's first name */
     private String firstName;
     /** The trainer's last name */
@@ -18,27 +16,22 @@ public class Trainer {
     private String password;
 
     /**
+     * Default Constructor
+     */
+    public Trainer() {}
+
+    /**
      * Trainer Constructor
-     * @param trainerID the trainer's ID
      * @param firstName the trainer's first name
      * @param lastName the trainer's last name
      * @param username the trainer's username
      * @param password the trainer's password
      */
-    public Trainer(int trainerID, String firstName, String lastName, String username, String password) {
-        setTrainerID(trainerID);
+    public Trainer(String firstName, String lastName, String username, String password) {
         setFirstName(firstName);
         setLastName(lastName);
         setUsername(username);
         setPassword(password);
-    }
-
-    /**
-     * Returns the trainer's ID
-     * @return the trainer's ID
-     */
-    public int getTrainerID() {
-        return trainerID;
     }
 
     /**
@@ -74,14 +67,6 @@ public class Trainer {
     }
 
     /**
-     * Sets the trainer's ID
-     * @param trainerID the trainer's ID
-     */
-    public void setTrainerID(int trainerID) {
-        this.trainerID = trainerID;
-    }
-
-    /**
      * Sets the trainer's first name
      * @param firstName the trainer's first name
      */
@@ -112,4 +97,5 @@ public class Trainer {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

@@ -2,6 +2,7 @@ package com.revature;
 
 import com.revature.controllers.KantoPokemonController;
 import com.revature.controllers.PokemonController;
+import com.revature.controllers.TrainerController;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 
@@ -32,7 +33,8 @@ public class Application {
         app.get("/randomPokemon", kpc.getRandomPokemon); // GET a random pokemon
 
         // TRAINER CONTROLLER
-
+        TrainerController tc = new TrainerController();
+        app.post("/trainer", tc.loginHandler);
 
         // Listen on port 150
         app.start(150);
