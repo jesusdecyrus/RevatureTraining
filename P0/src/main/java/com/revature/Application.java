@@ -47,6 +47,7 @@ public class Application {
         app.get("/pokemon/trainer/{trainerID}", pc.getPostPokemonByTrainer); // GET all pokemon matching trainer ID
         app.post("/pokemon/add", pc.postPokemon); // POST a pokemon
         app.put("/pokemon/update/{pokemonID}/{trainerID}", pc.putPokemon); // PUT or UPDATE a pokemon
+        app.delete("/pokemon/delete/{pokemonID}", pc.deletePokemon); // DELETE a pokemon
 
         // RANDOM POKEMON CONTROLLER
         KantoPokemonController kpc = new KantoPokemonController();
@@ -54,8 +55,8 @@ public class Application {
 
         // TRAINER CONTROLLER (LOGIN AND SIGN UP)
         TrainerController tc = new TrainerController();
-        app.post("/trainer/login", tc.loginHandler);
-        app.post("/trainer/signup", tc.signUpHandler);
+        app.post("/trainer/login", tc.loginHandler); // GET a trainer
+        app.post("/trainer/signup", tc.signUpHandler); // POST a trainer
 
         // Listen on port 150
         app.start(150);

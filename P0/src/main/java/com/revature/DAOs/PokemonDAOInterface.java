@@ -37,4 +37,12 @@ public interface PokemonDAOInterface {
      * @return an array list of all Pokemon in the table
      */
     ArrayList<Pokemon> getAllPokemon();
+
+    /**
+     * Delete a Pokemon given the ID
+     * @param pokemonID the Pokemon's ID
+     * @return true when deleted; otherwise, false
+     */
+    boolean deletePokemon(int pokemonID);
+
 }

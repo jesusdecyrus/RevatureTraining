@@ -106,4 +106,23 @@ public class PokemonController {
         }
     };
 
+    public Handler deletePokemon = ctx -> {
+        // Extract the path parameter from HTTP Request URL
+        int pokemonID = Integer.parseInt(ctx.pathParam("pokemonID"));
+
+        if (pokemonID > 0) {
+            if (pDAO.deletePokemon(pokemonID)) {
+                ctx.status(200);
+            }
+            else {
+                ctx.result("Invalid Pokemon ID");
+                ctx.status(404);
+            }
+        }
+        else {
+            ctx.result("Invalid Pokemon ID");
+            ctx.status(404);
+        }
+    };
+
 }

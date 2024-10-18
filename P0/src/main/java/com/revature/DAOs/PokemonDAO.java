@@ -57,7 +57,6 @@ public class PokemonDAO implements PokemonDAOInterface {
 
     /**
      * GET all Pokemon in the table
-     *
      * @return an array list of all Pokemon in the table
      */
     @Override
@@ -169,6 +168,34 @@ public class PokemonDAO implements PokemonDAOInterface {
         }
 
         return null;
+    }
+
+    /**
+     * Delete a Pokemon given the ID
+     * @param pokemonID the Pokemon's ID
+     * @return true when deleted; otherwise, false
+     */
+    @Override
+    public boolean deletePokemon(int pokemonID) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            // SQL Query
+            String query = "DELETE FROM pokemon WHERE pokemonID = ?";
+
+            // Prepare Statement
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // Set the query parameters
+            ps.setInt(1, pokemonID);
+
+            // Execute query and return whether it was deleted or not
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error deleting Pokemon");
+        }
+
+        return false;
     }
 
 }
