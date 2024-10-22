@@ -65,7 +65,7 @@ public class TrainerDao implements TrainerDAOInterface {
     public Trainer signup(String firstName, String lastName, String username, String password) {
         try (Connection connection = ConnectionUtil.getConnection()) {
             // SQL query
-            String query = "INSERT into trainer(firstName, lastName, username, password) " +
+            String query = "INSERT into trainers(firstName, lastName, username, password) " +
                            "VALUES (?, ?, ?, ?)";
 
             // Prepare Statement
@@ -78,8 +78,10 @@ public class TrainerDao implements TrainerDAOInterface {
             ps.setString(4, password);
 
             // Execute and return the trainer
-            ps.executeUpdate();
-            return new Trainer(firstName, lastName, username, password);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                return new Trainer(firstName, lastName, username, password);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error posting trainer");

@@ -31,7 +31,7 @@ public class Application {
 
             if (requiresAuthentication && TrainerController.session == null) {
                System.out.println("Session is null");
-               throw new IllegalArgumentException("You must log in");
+               throw new IllegalArgumentException("You must log in!");
            }
         });
         // Exception handler for null session
