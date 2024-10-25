@@ -3,6 +3,8 @@ package com.revature.models;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * User Class
  * @author Cyrus De Jesus
@@ -34,6 +36,10 @@ public class User {
     /** User's role */
     @Column(nullable = false) // Set Column Constraints
     private String role = "Employee";
+
+    /** List of Reimbursements */
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL) // (One-to-Many Relationship)
+    private List<Reimbursement> reimbursementList;
 
     /**
      * Default User Constructor

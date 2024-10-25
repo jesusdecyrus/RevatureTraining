@@ -18,16 +18,21 @@ public class Reimbursement {
     private int reimbursementId;
 
     /** Reimbursement description */
+    @Column(nullable = false)
     private String description;
 
     /** Reimbursement amount */
+    @Column(nullable = false)
     private int amount;
 
     /** Reimbursement status */
+    @Column(nullable = false)
     private String status;
 
     /** Reimbursement user id */
-    private int userId;
+    @ManyToOne(fetch = FetchType.EAGER) // Eagerly Load Dependency (Many-to-One Relationship)
+    @JoinColumn(name = "userId") // Column to Link PK of User
+    private User user;
 
     /**
      * Default Constructor
@@ -92,7 +97,7 @@ public class Reimbursement {
      * @return userId the current value of userId
      */
     public int getUserId() {
-        return userId;
+        return user.getUserId();
     }
 
     /**
@@ -137,7 +142,7 @@ public class Reimbursement {
      * @param userId the new value to set for userId
      */
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.user.setUserId(userId);
     }
 
 }
