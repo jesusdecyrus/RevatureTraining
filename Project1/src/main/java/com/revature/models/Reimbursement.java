@@ -145,4 +145,14 @@ public class Reimbursement {
         this.user.setUserId(userId);
     }
 
+    /**
+     * Checks if a reimbursement is valid
+     * @return true if valid; otherwise, false
+     */
+    public boolean validate() {
+        return description != null && !description.isEmpty() &&
+                amount > 0 &&
+                status != null && !status.isEmpty() &&
+                user.getUserId() > 0;
+    }
 }

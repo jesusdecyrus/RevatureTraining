@@ -32,7 +32,7 @@ public class UserController {
     /**
      * POST request to insert a User
      * @param user the user to insert
-     * @return the status code and created user
+     * @return response entity
      */
     @PostMapping("/signup")
     public ResponseEntity<User> signUpUser(@RequestBody User user) {
@@ -44,6 +44,11 @@ public class UserController {
     }
 
 
+    /**
+     * POST request to login a user
+     * @param user the user to login
+     * @return response entity
+     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         // Retrieve user from the service
@@ -61,7 +66,7 @@ public class UserController {
     /**
      * GET request to a get a user with matching username
      * @param username the user's username
-     * @return the user matching the username
+     * @return response entity
      */
     @GetMapping("/one/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
@@ -79,7 +84,7 @@ public class UserController {
 
     /**
      * GET request to get all users
-     * @return the status code and list of users
+     * @return response entity
      */
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
