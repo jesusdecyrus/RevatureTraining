@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     /** UserService Instance */
-    private UserService userService;
+    private final UserService userService;
 
     /**
      * UserController Constructor

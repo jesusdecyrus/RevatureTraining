@@ -1,7 +1,6 @@
 package com.revature.models;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.stereotype.Component;
 
 /**

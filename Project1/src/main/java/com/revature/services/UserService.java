@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     /** UserDAO Instance */
-    private UserDAO userDao;
+    private final UserDAO userDao;
 
     /**
      * UserService Constructor
