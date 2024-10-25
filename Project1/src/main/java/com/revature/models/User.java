@@ -33,15 +33,13 @@ public class User {
     private String password;
 
     /** User's role */
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'Employee'") // Set Default Role to 'Employee'
-    private String role;
+    @Column(nullable = false) // Set Column Constraints
+    private String role = "Employee";
 
     /**
      * Default User Constructor
      */
-    public User() {
-        this.role = "Employee";
-    }
+    public User() {}
 
     /**
      * User Constructor
