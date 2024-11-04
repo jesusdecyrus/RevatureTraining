@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +40,7 @@ public class User {
 
     /** List of Reimbursements */
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL) // (One-to-Many Relationship)
+    @JsonIgnore // Prevents Circular Reference
     private List<Reimbursement> reimbursementList;
 
     /**

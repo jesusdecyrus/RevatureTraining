@@ -1,58 +1,44 @@
-package com.revature.models;
-
-import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+package com.revature.models.dtos;
 
 /**
- * Reimbursement Class
+ * Reimbursement Data Transfer Object
  * @author Cyrus De Jesus
  */
-@Entity
-@Table(name = "Reimbursements")
-@Component
-public class Reimbursement {
+public class ReimbursementDTO {
 
     /** Reimbursement's id */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reimbursementId;
 
     /** Reimbursement description */
-    @Column(nullable = false)
     private String description;
 
     /** Reimbursement amount */
-    @Column(nullable = false)
     private int amount;
 
     /** Reimbursement status */
-    @Column(nullable = false)
     private String status;
 
-    /** Reimbursement user id */
-    @ManyToOne(fetch = FetchType.EAGER) // Eagerly Load Dependency (Many-to-One Relationship)
-    @JoinColumn(name = "userId") // Column to Link PK of User
-    private User user;
+    /** Reimbursement user id to link to user */
+    private int userId;
 
     /**
      * Default Constructor
      */
-    public Reimbursement() {}
+    public ReimbursementDTO() {}
 
     /**
-     * Reimbursement Constructor
+     * ReimbursementDTO Constructor
      * @param reimbursementId Reimbursement's id
      * @param description Reimbursement's description
      * @param amount Reimbursement's amount
      * @param status Reimbursement's status
-     * @param user Reimbursement's user
      */
-    public Reimbursement(int reimbursementId, String description, int amount, String status, User user) {
+    public ReimbursementDTO(int reimbursementId, String description, int amount, String status, int userId) {
         setReimbursementId(reimbursementId);
         setDescription(description);
         setAmount(amount);
         setStatus(status);
-        setUser(user);
+        setUserId(userId);
     }
 
     /**
@@ -65,25 +51,7 @@ public class Reimbursement {
     }
 
     /**
-     * Returns the value of the description field
-     *
-     * @return description the current value of description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Returns the value of the amount field
-     *
-     * @return amount the current value of amount
-     */
-    public int getAmount() {
-        return amount;
-    }
-
-    /**
-     * Returns the value of the status field
+     * Returns the value of the status
      *
      * @return status the current value of status
      */
@@ -92,12 +60,30 @@ public class Reimbursement {
     }
 
     /**
-     * Returns the value of the user field
+     * Returns the value of the amount
      *
-     * @return userId the current value of user
+     * @return amount the current value of amount
      */
-    public User getUser() {
-        return user;
+    public int getAmount() {
+        return amount;
+    }
+
+    /**
+     * Returns the value of the description
+     *
+     * @return description the current value of description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the value of the userId
+     *
+     * @return userId the current value of userId
+     */
+    public int getUserId() {
+        return userId;
     }
 
     /**
@@ -139,10 +125,21 @@ public class Reimbursement {
     /**
      * Sets the userId
      *
-     * @param user the new value to set for user
+     * @param userId the new value to set for userId
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Checks if a reimbursement dto is valid
+     * @return true if valid; otherwise, false
+     */
+    public boolean validate() {
+        return description != null && !description.isEmpty() &&
+                amount > 0 &&
+                status != null && !status.isEmpty() &&
+                userId > 0;
     }
 
 }

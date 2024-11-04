@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.models.dtos.ReimbursementDTO;
 import com.revature.models.Reimbursement;
 import com.revature.services.ReimbursementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class ReimbursementController {
 
     /**
      * POST request to insert reimbursement to the database
-     * @param reimbursement the reimbursement to insert
+     * @param reimbursementDTO the reimbursement to insert
      * @return response entity
      */
     @PostMapping
-    public ResponseEntity<Reimbursement> insertReimbursement(@RequestBody Reimbursement reimbursement) {
-        Reimbursement r = reimbursementService.insertReimbursement(reimbursement);
-        return ResponseEntity.ok(r);
+    public ResponseEntity<Reimbursement> insertReimbursement(@RequestBody ReimbursementDTO reimbursementDTO) {
+        Reimbursement r = reimbursementService.insertReimbursement(reimbursementDTO);
+        return ResponseEntity.status(201).body(r);
     }
 }
