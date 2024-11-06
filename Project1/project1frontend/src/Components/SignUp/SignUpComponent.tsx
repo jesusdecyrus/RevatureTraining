@@ -38,9 +38,9 @@ export const SignUpComponent:React.FC = () => {
     try {
       // POST request to the signup endpoint
       await axios.post("http://localhost:150/users/signup", user);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
-      console.log("Failed: ", error);
+      console.log("Failed to sign up: ", error);
     }
   }
 
@@ -87,8 +87,10 @@ export const SignUpComponent:React.FC = () => {
           </div>
 
           <div>
-            <Button className="btn-dark m-4" onClick={() => navigate("/")}>Login</Button>
-            <Button className="btn-light" onClick={signup}>Sign Up</Button>
+            <Button className="btn-dark mt-4" onClick={signup}>Sign Up</Button>
+          </div>
+          <div>
+            <Button className="btn-light mt-3" onClick={() => navigate("/")}>Login</Button>
           </div>
         </div>
       </Container>

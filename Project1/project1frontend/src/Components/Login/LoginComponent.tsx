@@ -1,20 +1,76 @@
-import { Container } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
 
 /**
  * Login Component
  * @returns HTML
  */
 export const LoginComponent:React.FC = () => {
-  
-
+  // Navigate
   const navigate = useNavigate();
 
+  // User setter
+  const [user, setUser] = useState({
+    username: "",
+    password: ""
+  })
+
+  // Handle input changes
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+
+    // Update state
+    setUser(previousUser => ({
+      ...previousUser,
+      [name]: value
+    }))
+  }
+
+  // Backend communication 
+  const login = async () => {
+    try {
+      // POST request to the login endpoint
+      const response = await axios.post("http://localhost:150/users/login", user);
+      navigate("/home", { state: { user: response.data } });
+    } catch(error) {
+      console.log("Failed to log in: ", error);
+    }
+  }
+
+  // HTML
   return (
-    <Container>
-      <h3>Login</h3>
-      <button>Login</button>
-      <button onClick={() => navigate("/signup")}>Sign Up</button>
-    </Container>
+    <div className="d-flex justify-content-center align-items-center custom-height">
+      <Container className="bg-secondary rounded-pill p-5">
+        <h3>Login</h3>
+        <div>
+          <Form.Control
+            type="text"
+            placeholder="username"
+            name="username"
+            value={user.username}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <Form.Control
+            type="password"
+            placeholder="password"
+            name="password"
+            value={user.password}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <div>
+          <Button className="btn-dark mt-4" onClick={login}>Login</Button>
+        </div>
+        <div>
+        <Button className="btn-light mt-3" onClick={() => navigate("/signup")}>Sign Up</Button>
+        </div>
+      </Container>
+    </div>
   )
 }
