@@ -15,6 +15,7 @@ import java.util.List;
  */
 @RestController // Combines Controller and Response Body
 @RequestMapping("/users") // All HTTP Requests made to /users
+@CrossOrigin // Allows cross-origin-resource-sharing
 public class UserController {
 
     /** UserService Instance */
