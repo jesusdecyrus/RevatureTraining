@@ -44,7 +44,6 @@ public class UserController {
         return ResponseEntity.ok(u);
     }
 
-
     /**
      * POST request to login a user
      * @param user the user to login
