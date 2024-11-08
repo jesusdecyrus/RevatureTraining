@@ -3,12 +3,15 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
+import { useAuthentication } from "../../Context/AuthenticationContext";
 
 /**
  * Login Component
  * @returns HTML
  */
 export const LoginComponent:React.FC = () => {
+  // Authentication
+  const { authenticationLogin } = useAuthentication();
   // Navigate
   const navigate = useNavigate();
 
@@ -33,8 +36,13 @@ export const LoginComponent:React.FC = () => {
   const login = async () => {
     try {
       // POST request to the login endpoint
-      const response = await axios.post("http://localhost:150/users/login", user);
-      navigate("/home", { state: { user: response.data } });
+      await axios.post("http://localhost:150/users/login", user);
+      
+      // Update authentication
+      authenticationLogin(user.username, user.password);
+
+      // Login Success
+      navigate("/home");
     } catch(error) {
       console.log("Failed to log in: ", error);
     }

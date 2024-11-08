@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
  * @returns HTML 
  */
 export const SignUpComponent:React.FC = () => {
-
   // Navigate
   const navigate = useNavigate();
 

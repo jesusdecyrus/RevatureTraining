@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom"
+import { useAuthentication } from "../../Context/AuthenticationContext";
 
 /**
  * Home Component
  * @returns HTML
  */
 export const HomeComponent:React.FC = () => {
+  // Authentication
+  
+  const { AuthenticationData } = useAuthentication();
   // Navigate
   const navigate = useNavigate();
-  
-  // Access the user
-  const location = useLocation();
-  const user = location.state?.user;
 
   // Return user to login when not signed in
   useEffect(() => {
-    if (!user || user === undefined) {
+    if (!AuthenticationData.isAuthenticated) {
       navigate("/");
     }
   })
@@ -23,7 +23,7 @@ export const HomeComponent:React.FC = () => {
   // HTML
   return(
     <div>
-      Welcome {user}
+      Welcome {AuthenticationData.username}
     </div>
   )
 }
