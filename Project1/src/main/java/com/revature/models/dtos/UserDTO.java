@@ -1,17 +1,10 @@
 package com.revature.models.dtos;
 
-import com.revature.models.Reimbursement;
-
-import java.util.List;
-
 /**
  * User Data Transfer Object
  * @author Cyrus De Jesus
  */
 public class UserDTO {
-
-    /** User's id */
-    private int userId;
 
     /** User's first name */
     private String firstName;
@@ -32,23 +25,16 @@ public class UserDTO {
 
     /**
      * UserDTO Constructor
-     * @param userId the User's id
      * @param firstName the User's first name
      * @param lastName the User's last name
      * @param username the User's username
      * @param role the User's role
      */
-    public UserDTO(int userId, String firstName, String lastName, String username, String role) {
-
-    }
-
-    /**
-     * Returns the value of the userId
-     *
-     * @return userId the current value of userId
-     */
-    public int getUserId() {
-        return userId;
+    public UserDTO(String firstName, String lastName, String username, String role) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUsername(username);
+        setRole(role);
     }
 
     /**
@@ -85,15 +71,6 @@ public class UserDTO {
      */
     public String getFirstName() {
         return firstName;
-    }
-
-    /**
-     * Sets the userId
-     *
-     * @param userId the new value to set for userId
-     */
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     /**

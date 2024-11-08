@@ -1,11 +1,16 @@
 package com.revature.services;
 
+import com.revature.controllers.UserController;
 import com.revature.daos.UserDAO;
 import com.revature.models.User;
+import com.revature.models.dtos.UserDTO;
+import com.revature.models.dtos.UserLoginDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * User Service
@@ -33,13 +38,13 @@ public class UserService {
      */
     public User signUp(User user) {
         // Check if user is valid
-        if (user == null || !user.validateUser()) {
-            throw new IllegalArgumentException("Invalid user");
+        if (user == null || !user.isValid()) {
+            throw new IllegalArgumentException("Invalid user sign up");
         }
 
         // Check for unique username
-        User getUser = getUserByUsername(user.getUsername());
-        if (getUser != null) {
+        User u = userDao.findByUsername(user.getUsername());
+        if (u != null) {
             throw new IllegalArgumentException("Username already exists");
         }
 
@@ -48,30 +53,52 @@ public class UserService {
     }
 
     /**
-     * Returns a user given the user's username
-     * @param username the user's username
-     * @return the user with matching username
+     * Returns a user DTO given the user's username and password as well as session
+     * @param userLoginDTO the UserLoginDTO
+     * @param session the HTTP session
+     * @return a UserDTO
      */
-    public User getUserByUsername(String username) {
-        return userDao.findByUsername(username);
+    public UserDTO login(UserLoginDTO userLoginDTO, HttpSession session) {
+        User u = userDao.findByUsernameAndPassword(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+
+        // Error check
+        if (u == null || !u.isValid()) {
+            throw new IllegalArgumentException("No user found");
+        }
+
+        // User found then set session
+        UserController.session = session;
+        UserController.session.setAttribute("userId", u.getUserId());
+        UserController.session.setAttribute("username", u.getUsername());
+        UserController.session.setAttribute("role", u.getRole());
+
+        return new UserDTO(u.getFirstName(), u.getLastName(), u.getUsername(), u.getRole());
     }
 
     /**
-     * Returns a user given the user's username and password
+     * Returns a user DTO given the user's username
      * @param username the user's username
-     * @param password the user's password
-     * @return the matching user
+     * @return a UserDTO
      */
-    public User getUserByUsernameAndPassword(String username, String password) {
-        return userDao.findByUsernameAndPassword(username, password);
+    public UserDTO getUserByUsername(String username) {
+        User u = userDao.findByUsername(username);
+
+        // Error check
+        if (u == null || !u.isValid()) {
+            throw new IllegalArgumentException("No user found");
+        }
+
+        return new UserDTO(u.getFirstName(), u.getLastName(), u.getUsername(), u.getRole());
     }
 
     /**
      * Returns all users from the database
      * @return all users from the database
      */
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         // .findAll() returns all records in a table
-        return userDao.findAll();
+        List<User> userList = userDao.findAll();
+
+        return userList.stream().map(User::toDTO).collect(Collectors.toList());
     }
 }

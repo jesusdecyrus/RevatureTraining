@@ -1,7 +1,10 @@
 package com.revature.controllers;
 
 import com.revature.models.User;
+import com.revature.models.dtos.UserDTO;
+import com.revature.models.dtos.UserLoginDTO;
 import com.revature.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,9 @@ public class UserController {
     /** UserService Instance */
     private final UserService userService;
 
+    /** The HTTP Session */
+    public static HttpSession session;
+
     /**
      * UserController Constructor
      * @param userService the UserService
@@ -36,31 +42,27 @@ public class UserController {
      * @return response entity
      */
     @PostMapping("/signup")
-    public ResponseEntity<User> signUpUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> signUpUser(@RequestBody User user) {
         // Send user to service to insert and save
         User u = userService.signUp(user);
 
         // Status code
-        return ResponseEntity.ok(u);
+        return ResponseEntity.ok(new UserDTO(u.getFirstName(), u.getLastName(), u.getUsername(), u.getRole()));
     }
 
     /**
      * POST request to login a user
-     * @param user the user to login
+     * @param userLoginDTO the UserLoginDTO
+     * @param session the HTTP session
      * @return response entity
      */
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody UserLoginDTO userLoginDTO, HttpSession session) {
         // Retrieve user from the service
-        User u = userService.getUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-
-        // No user found
-        if (u == null) {
-            return ResponseEntity.status(404).body("Invalid username or password");
-        }
+        UserDTO userDTO = userService.login(userLoginDTO, session);
 
         // Status code
-        return ResponseEntity.ok("Welcome " + u.getFirstName() + " " + u.getLastName() + "!");
+        return ResponseEntity.ok(userDTO);
     }
 
     /**
@@ -71,15 +73,10 @@ public class UserController {
     @GetMapping("/one/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         // Retrieve user from the service
-        User user = userService.getUserByUsername(username);
-
-        // No user found
-        if (user == null) {
-            return ResponseEntity.status(404).body("No user found with username: " + username);
-        }
+        UserDTO userDTO = userService.getUserByUsername(username);
 
         // Status code
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userDTO);
     }
 
     /**
@@ -87,12 +84,12 @@ public class UserController {
      * @return response entity
      */
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         // Retrieve list from the service
-        List<User> list = userService.getAllUsers();
+        List<UserDTO> userDTOList = userService.getAllUsers();
 
         // Status code
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(userDTOList);
     }
 
     /**

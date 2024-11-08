@@ -1,6 +1,7 @@
 package com.revature.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.revature.models.dtos.UserDTO;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -178,11 +179,19 @@ public class User {
      * Returns whether the user is valid or not
      * @return true when valid; otherwise, false
      */
-    public boolean validateUser() {
+    public boolean isValid() {
         return firstName != null && !firstName.isEmpty() &&
                lastName != null && !lastName.isEmpty() &&
                username != null && !username.isEmpty() &&
                password != null && !password.isEmpty();
+    }
+
+    /**
+     * Converts User to UserDTO
+     * @return the UserDTO
+     */
+    public UserDTO toDTO() {
+        return new UserDTO(getFirstName(), getLastName(), getUsername(), getRole());
     }
 
 }
