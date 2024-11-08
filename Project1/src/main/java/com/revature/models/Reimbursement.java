@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import com.revature.models.dtos.ReimbursementDTO;
+import com.revature.models.dtos.UserDTO;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -145,4 +147,11 @@ public class Reimbursement {
         this.user = user;
     }
 
+    /**
+     * Converts Reimbursement to ReimbursementDTO
+     * @return the ReimbursementDTO
+     */
+    public ReimbursementDTO toDTO() {
+        return new ReimbursementDTO(getReimbursementId(), getDescription(), getAmount(), getStatus(), getUser().getUserId());
+    }
 }

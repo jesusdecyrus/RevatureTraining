@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Reimbursement Controller
  * @author Cyrus De Jesus
@@ -34,8 +36,27 @@ public class ReimbursementController {
      * @return response entity
      */
     @PostMapping
-    public ResponseEntity<Reimbursement> insertReimbursement(@RequestBody ReimbursementDTO reimbursementDTO) {
-        Reimbursement r = reimbursementService.insertReimbursement(reimbursementDTO);
+    public ResponseEntity<ReimbursementDTO> insertReimbursement(@RequestBody ReimbursementDTO reimbursementDTO) {
+        ReimbursementDTO r = reimbursementService.insertReimbursement(reimbursementDTO);
         return ResponseEntity.status(201).body(r);
+    }
+
+    /**
+     * GET request to get all reimbursements
+     * @return response entity
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<ReimbursementDTO>> getAllReimbursements() {
+        return ResponseEntity.ok(reimbursementService.getAllReimbursements());
+    }
+
+    /**
+     * Return error status code for Illegal Argument
+     * @param e the exception
+     * @return error status code
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
+        return ResponseEntity.status(400).body(e.getMessage());
     }
 }

@@ -5,10 +5,13 @@ import com.revature.daos.UserDAO;
 import com.revature.models.dtos.ReimbursementDTO;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
+import com.revature.models.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Reimbursement Service
@@ -39,7 +42,7 @@ public class ReimbursementService {
      * @param reimbursementDTO the reimbursement to add
      * @return the reimbursement added
      */
-    public Reimbursement insertReimbursement(ReimbursementDTO reimbursementDTO) {
+    public ReimbursementDTO insertReimbursement(ReimbursementDTO reimbursementDTO) {
         if (reimbursementDTO == null || !reimbursementDTO.validate()) {
             throw new IllegalArgumentException("Invalid reimbursement");
         }
@@ -51,8 +54,19 @@ public class ReimbursementService {
         }
         else {
             // User found so add reimbursement
-            return reimbursementDAO.save(new Reimbursement(reimbursementDTO.getReimbursementId(), reimbursementDTO.getDescription(), reimbursementDTO.getAmount(), reimbursementDTO.getStatus(), user.get()));
+            Reimbursement reimbursement = reimbursementDAO.save(new Reimbursement(reimbursementDTO.getReimbursementId(), reimbursementDTO.getDescription(), reimbursementDTO.getAmount(), reimbursementDTO.getStatus(), user.get()));
+            reimbursementDTO.setReimbursementId(reimbursement.getReimbursementId());
+            return reimbursementDTO;
         }
+    }
+
+    /**
+     * Returns all reimbursements from the database
+     * @return all reimbursements from the database
+     */
+    public List<ReimbursementDTO> getAllReimbursements() {
+        List<Reimbursement> reimbursementList = reimbursementDAO.findAll();
+        return reimbursementList.stream().map(Reimbursement::toDTO).collect(Collectors.toList());
     }
 
 }
