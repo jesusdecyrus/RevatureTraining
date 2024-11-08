@@ -1,5 +1,7 @@
 package com.revature.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Reimbursement Data Transfer Object
  * @author Cyrus De Jesus
@@ -135,7 +137,8 @@ public class ReimbursementDTO {
      * Checks if a reimbursement dto is valid
      * @return true if valid; otherwise, false
      */
-    public boolean validate() {
+    @JsonIgnore
+    public boolean isValid() {
         return description != null && !description.isEmpty() &&
                 amount > 0 &&
                 status != null && !status.isEmpty() &&

@@ -1,7 +1,7 @@
 package com.revature.controllers;
 
+import com.revature.aspects.ManagerOnly;
 import com.revature.models.dtos.ReimbursementDTO;
-import com.revature.models.Reimbursement;
 import com.revature.services.ReimbursementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +45,7 @@ public class ReimbursementController {
      * GET request to get all reimbursements
      * @return response entity
      */
+    @ManagerOnly
     @GetMapping("/all")
     public ResponseEntity<List<ReimbursementDTO>> getAllReimbursements() {
         return ResponseEntity.ok(reimbursementService.getAllReimbursements());
@@ -59,4 +60,5 @@ public class ReimbursementController {
     public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
         return ResponseEntity.status(400).body(e.getMessage());
     }
+
 }

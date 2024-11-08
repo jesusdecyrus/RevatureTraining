@@ -5,7 +5,6 @@ import com.revature.daos.UserDAO;
 import com.revature.models.dtos.ReimbursementDTO;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
-import com.revature.models.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +42,7 @@ public class ReimbursementService {
      * @return the reimbursement added
      */
     public ReimbursementDTO insertReimbursement(ReimbursementDTO reimbursementDTO) {
-        if (reimbursementDTO == null || !reimbursementDTO.validate()) {
+        if (reimbursementDTO == null || !reimbursementDTO.isValid()) {
             throw new IllegalArgumentException("Invalid reimbursement");
         }
 

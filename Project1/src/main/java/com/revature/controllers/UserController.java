@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.aspects.ManagerOnly;
 import com.revature.models.User;
 import com.revature.models.dtos.UserDTO;
 import com.revature.models.dtos.UserLoginDTO;
@@ -25,7 +26,7 @@ public class UserController {
     private final UserService userService;
 
     /** The HTTP Session */
-    public static HttpSession session;
+    public static HttpSession session = null;
 
     /**
      * UserController Constructor
@@ -70,6 +71,7 @@ public class UserController {
      * @param username the user's username
      * @return response entity
      */
+    @ManagerOnly
     @GetMapping("/one/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         // Retrieve user from the service
@@ -83,6 +85,7 @@ public class UserController {
      * GET request to get all users
      * @return response entity
      */
+    @ManagerOnly
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         // Retrieve list from the service
@@ -93,9 +96,9 @@ public class UserController {
     }
 
     /**
-     * Return error status code for Illegal Argument
-     * @param e the exception
-     * @return error status code
+     * Handles illegal argument exception
+     * @param e the illegal argument exception
+     * @return response entity
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
@@ -103,9 +106,9 @@ public class UserController {
     }
 
     /**
-     * Return error status code for SQL
-     * @param e the exception
-     * @return error status code
+     * Handles the sql exception
+     * @param e the sql exception
+     * @return response entity
      */
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<String> handleIllegalArgument(SQLException e){
