@@ -68,4 +68,13 @@ public class ReimbursementService {
         return reimbursementList.stream().map(Reimbursement::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Returns owned reimbursements from the database
+     * @return owned reimbursements from the database
+     */
+    public List<ReimbursementDTO> getOwnedReimbursements(String username) {
+        List<Reimbursement> reimbursementList = reimbursementDAO.findAll();
+        return reimbursementList.stream().filter(reimbursement -> reimbursement.getUser().getUsername().equals(username)).map(Reimbursement::toDTO).collect(Collectors.toList());
+    }
+
 }

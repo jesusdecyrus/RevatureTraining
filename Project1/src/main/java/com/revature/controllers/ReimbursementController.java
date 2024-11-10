@@ -52,6 +52,15 @@ public class ReimbursementController {
     }
 
     /**
+     * GET request to get owned reimbursements
+     * @return response entity
+     */
+    @GetMapping("/owned")
+    public ResponseEntity<List<ReimbursementDTO>> getOwnedReimbursements(@RequestParam String username) {
+        return ResponseEntity.ok(reimbursementService.getOwnedReimbursements(username));
+    }
+
+    /**
      * Return error status code for Illegal Argument
      * @param e the exception
      * @return error status code
