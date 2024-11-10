@@ -22,6 +22,9 @@ export const LoginComponent:React.FC = () => {
     password: ""
   })
 
+  // Message
+  const [message, setMessage] = useState("");
+
   // Handle input changes
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
@@ -46,6 +49,7 @@ export const LoginComponent:React.FC = () => {
       navigate("/home");
     } catch(error) {
       console.log("Failed to log in: ", error);
+      setMessage("Invalid Username or Password");
     }
   }
 
@@ -72,8 +76,12 @@ export const LoginComponent:React.FC = () => {
         />
       </div>
 
+      {/* Messages and Button */}
+      <div className="mt-2 text-danger">
+        {message}
+      </div>
       <div>
-        <Button className="btn-dark mt-4" onClick={login}>Login</Button>
+        <Button className="btn-dark mt-3" onClick={login}>Login</Button>
       </div>
     </div>
   )

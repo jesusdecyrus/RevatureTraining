@@ -3,15 +3,14 @@ import { Button, Form } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
 
 /**
  * SignUp Component
  * @returns HTML 
  */
 export const SignUpComponent:React.FC = () => {
-  // Navigate
-  const navigate = useNavigate();
+  // Message
+  const [message, setMessage] = useState("");
 
   // Setter
   const [user, setUser] = useState({
@@ -37,9 +36,11 @@ export const SignUpComponent:React.FC = () => {
     try {
       // POST request to the signup endpoint
       await axios.post("http://localhost:150/users/signup", user);
-      navigate("/");
+      setMessage("Successfully Created User");
+
     } catch (error) {
       console.log("Failed to sign up: ", error);
+      setMessage("Username Already Exists");
     }
   }
 
@@ -82,10 +83,15 @@ export const SignUpComponent:React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-
-      <div>
-        <Button className="btn-dark mt-4" onClick={signup}>Sign Up</Button>
+      
+      {/* Messages and Button */}
+      <div className={`mt-2 ${message === 'Username Already Exists' ? 'text-danger' : message === 'Successfully Created User' ? 'text-success' : ''}`}>
+        {message}
       </div>
+      <div>
+        <Button className="btn-dark mt-3" onClick={signup}>Sign Up</Button>
+      </div>
+      
     </div>
   )
 }
