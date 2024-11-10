@@ -1,0 +1,47 @@
+.custom-hover {
+  font-size: 3rem;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.custom-hover:hover {
+  color: rgb(18, 18, 18);
+  cursor: default;
+}
+
+.custom-svg {
+  cursor: pointer;
+}
+
+.custom-footer {
+  position: fixed; 
+  bottom: 0;  
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
+
+/* REACT TRANSITION GROUP */
+.hollow-enter {
+  opacity: 0;
+  transform: scale(0.8); 
+}
+
+.hollow-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.hollow-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hollow-exit-active {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
-import { useAuthentication } from "../../Context/AuthenticationContext";
+import { useAuthentication } from "../../../Context/AuthenticationContext";
+import './login.css'
 
 /**
  * Login Component
@@ -50,35 +51,30 @@ export const LoginComponent:React.FC = () => {
 
   // HTML
   return (
-    <div className="d-flex justify-content-center align-items-center custom-height">
-      <Container className="bg-secondary rounded-pill p-5">
-        <h3>Login</h3>
-        <div>
-          <Form.Control
-            type="text"
-            placeholder="username"
-            name="username"
-            value={user.username}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <Form.Control
-            type="password"
-            placeholder="password"
-            name="password"
-            value={user.password}
-            onChange={handleInputChange}
-          />
-        </div>
+    <div className="bg-secondary mt-4 p-5 rounded">
+      <h2>Login</h2>
+      <div className="mt-4">
+        <Form.Control
+          type="text"
+          placeholder="username"
+          name="username"
+          value={user.username}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="mt-2">
+        <Form.Control
+          type="password"
+          placeholder="password"
+          name="password"
+          value={user.password}
+          onChange={handleInputChange}
+        />
+      </div>
 
-        <div>
-          <Button className="btn-dark mt-4" onClick={login}>Login</Button>
-        </div>
-        <div>
-        <Button className="btn-light mt-3" onClick={() => navigate("/signup")}>Sign Up</Button>
-        </div>
-      </Container>
+      <div>
+        <Button className="btn-dark mt-4" onClick={login}>Login</Button>
+      </div>
     </div>
   )
 }
