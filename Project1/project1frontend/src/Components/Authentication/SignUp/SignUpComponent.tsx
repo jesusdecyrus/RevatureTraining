@@ -1,5 +1,5 @@
 import './signup.css';
-import { Button, Container, Form } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from "react";
 import axios from "axios";
