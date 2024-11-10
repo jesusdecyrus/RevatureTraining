@@ -60,14 +60,4 @@ public class ReimbursementController {
         return ResponseEntity.ok(reimbursementService.getOwnedReimbursements(username));
     }
 
-    /**
-     * Return error status code for Illegal Argument
-     * @param e the exception
-     * @return error status code
-     */
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
-        return ResponseEntity.status(400).body(e.getMessage());
-    }
-
 }

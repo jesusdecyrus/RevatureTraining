@@ -95,24 +95,4 @@ public class UserController {
         return ResponseEntity.ok(userDTOList);
     }
 
-    /**
-     * Handles illegal argument exception
-     * @param e the illegal argument exception
-     * @return response entity
-     */
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
-        return ResponseEntity.status(400).body(e.getMessage());
-    }
-
-    /**
-     * Handles the sql exception
-     * @param e the sql exception
-     * @return response entity
-     */
-    @ExceptionHandler(SQLException.class)
-    public ResponseEntity<String> handleIllegalArgument(SQLException e){
-        return ResponseEntity.status(400).body(e.getMessage());
-    }
-
 }
