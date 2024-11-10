@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
 import { useAuthentication } from "../../../Context/AuthenticationContext";
-import './login.css'
 
 /**
  * Login Component

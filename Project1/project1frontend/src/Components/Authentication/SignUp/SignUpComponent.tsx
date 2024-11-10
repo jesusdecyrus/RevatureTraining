@@ -1,4 +1,3 @@
-import './signup.css';
 import { Button, Form } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from "react";
