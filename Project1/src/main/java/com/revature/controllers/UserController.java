@@ -71,7 +71,6 @@ public class UserController {
      * @param username the user's username
      * @return response entity
      */
-    @ManagerOnly
     @GetMapping("/one/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         // Retrieve user from the service
