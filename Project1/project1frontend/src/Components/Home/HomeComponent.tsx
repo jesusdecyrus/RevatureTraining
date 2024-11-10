@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom"
 import { useAuthentication } from "../../Context/AuthenticationContext";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { ReimbursementComponent } from "../Reimbursement/ReimbursementComponent";
-import { EmployeeComponent } from "../Employees/EmployeeComponent";
-import { ProfileComponent } from "../Profile/ProfileComponent";
+import { ReimbursementComponent } from "./Reimbursement/ReimbursementComponent";
+import { EmployeeComponent } from "./Employees/EmployeeComponent";
+import { ProfileComponent } from "./Profile/ProfileComponent";
 
 /**
  * Home Component
@@ -70,14 +70,14 @@ export const HomeComponent:React.FC = () => {
       </nav>
 
       <Container>
-        <div>
-          <h1>Welcome, {user.firstName} {user.lastName}!</h1>
-        </div>
         {component === "Reimbursements" && (
-          <ReimbursementComponent></ReimbursementComponent>
+          <div>
+            <h1>Welcome, {user.firstName} {user.lastName}!</h1>
+            <ReimbursementComponent></ReimbursementComponent>
+          </div>
         )}
         {component === "Employees" && (
-          <EmployeeComponent></EmployeeComponent>
+          <EmployeeComponent user={user}></EmployeeComponent>
         )}
         {component === "Profile" && (
           <ProfileComponent></ProfileComponent>

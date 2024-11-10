@@ -9,6 +9,14 @@ export const ReimbursementComponent:React.FC = () => {
   // Reimbursement Setter
   const [reimbursements, setReimbursements] = useState([]);
 
+  // User
+  const [user, setUser] = useState({
+    firstName: "Cyrus",
+    lastName: "De Jesus",
+    username: "cdejesus",
+    role: "Manager",
+  });
+
   // Load reimbursements when component mounts
   useEffect(() => {
     getAllReimbursements();
