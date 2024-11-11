@@ -99,9 +99,9 @@ public class UserController {
      * @param userDTO the user DTO
      * @return response entity
      */
-    @PutMapping("/role")
+    @PutMapping("/update")
     public ResponseEntity<UserDTO> updateUserRole(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.updateUserRole(userDTO));
+        return ResponseEntity.ok(userService.updateUser(userDTO));
     }
 
 }

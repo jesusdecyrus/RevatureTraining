@@ -1,5 +1,7 @@
 package com.revature.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * User Data Transfer Object
  * @author Cyrus De Jesus
@@ -107,6 +109,17 @@ public class UserDTO {
      */
     public void setRole(String role) {
         this.role = role;
+    }
+
+    /**
+     * Returns whether the user DTO is valid or not
+     * @return true when valid; otherwise, false
+     */
+    @JsonIgnore
+    public boolean isValid() {
+        return firstName != null && !firstName.isEmpty() &&
+                lastName != null && !lastName.isEmpty() &&
+                username != null && !username.isEmpty();
     }
 
 }

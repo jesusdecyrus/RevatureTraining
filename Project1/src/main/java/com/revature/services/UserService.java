@@ -59,9 +59,13 @@ public class UserService {
      * @return a UserDTO
      */
     public UserDTO login(UserLoginDTO userLoginDTO, HttpSession session) {
-        User u = userDao.findByUsernameAndPassword(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+        // Error check
+        if (userLoginDTO.getUsername() == null || userLoginDTO.getUsername().isEmpty() || userLoginDTO.getPassword() == null || userLoginDTO.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Invalid username or password");
+        }
 
         // Error check
+        User u = userDao.findByUsernameAndPassword(userLoginDTO.getUsername(), userLoginDTO.getPassword());
         if (u == null || !u.isValid()) {
             throw new IllegalArgumentException("No user found");
         }
@@ -103,19 +107,26 @@ public class UserService {
     }
 
     /**
-     * Updates a user's role
+     * Updates a user
      * @param userDTO the user DTO
-     * @return aa UserDTO
+     * @return a userDTO
      */
-    public UserDTO updateUserRole(UserDTO userDTO) {
+    public UserDTO updateUser(UserDTO userDTO) {
         // Error check
+        if (!userDTO.isValid()) {
+            throw new IllegalArgumentException("Invalid user to update");
+        }
         User u = userDao.findByUsername(userDTO.getUsername());
         if (u == null || !u.isValid()) {
             throw new IllegalArgumentException("No user found");
         }
 
-        // Update role
+        // Update user
+        u.setFirstName(userDTO.getFirstName());
+        u.setLastName(userDTO.getLastName());
+        u.setUsername(userDTO.getUsername());
         u.setRole(userDTO.getRole());
+
         userDao.save(u);
         return new UserDTO(u.getFirstName(), u.getLastName(), u.getUsername(), u.getRole());
     }
