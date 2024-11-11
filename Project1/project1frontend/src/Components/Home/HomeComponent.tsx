@@ -6,6 +6,7 @@ import axios from "axios";
 import { ReimbursementComponent } from "./Reimbursement/ReimbursementComponent";
 import { EmployeeComponent } from "./Employees/EmployeeComponent";
 import { ProfileComponent } from "./Profile/ProfileComponent";
+import './home.css';
 
 /**
  * Home Component
@@ -50,7 +51,7 @@ export const HomeComponent:React.FC = () => {
   // HTML
   return(
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-secondary">
         <a className="navbar-brand">Employee Reimbursement System</a>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav">
@@ -67,6 +68,7 @@ export const HomeComponent:React.FC = () => {
             </li>
           </ul>
         </div>
+        <button className="btn btn-outline-dark my-2 my-sm-0">Logout</button>
       </nav>
 
       <Container>

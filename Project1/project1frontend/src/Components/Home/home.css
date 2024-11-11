@@ -1,0 +1,19 @@
+.navbar {
+  padding: 1rem 1rem;
+  font-size: 1.2rem;
+  border-bottom: 3px solid rgb(18, 18, 18);
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  padding-right: 1rem;
+  cursor: default;
+}
+
+.navbar-brand:hover {
+  color: rgb(18, 18, 18);
+}
+
+.nav-link {
+  cursor: pointer;
+}
