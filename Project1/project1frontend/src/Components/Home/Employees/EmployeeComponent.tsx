@@ -36,24 +36,24 @@ export function EmployeeComponent({ user }: EmployeeComponentProps) {
   const navigate = useNavigate();
   const { AuthenticationData } = useAuthentication();
   const [authenticatedUser, setAuthenticatedUser] = useState({
-    firstName: "Cyrus",
-    lastName: "De Jesus",
-    username: "cdejesus",
-    role: "Manager",
+    firstName: '',
+    lastName: '',
+    username: '',
+    role: '',
   });
   useEffect(() => {
     if (!AuthenticationData.isAuthenticated) {
       // Return user to login when not signed in
-      navigate("/");
+      navigate('/');
     }
     else {
       // Retrieve the current logged in user's info
       const getUserData = async () => {
         try {
-          const response = await axios.get("http://localhost:150/users/one/" + AuthenticationData.username);
+          const response = await axios.get('http://localhost:150/users/one/' + AuthenticationData.username);
           setAuthenticatedUser(response.data);
         } catch (error) {
-          console.log("Failed to retrieve user: ", error);
+          console.log('Failed to retrieve user: ', error);
         }
       };
       getUserData();
@@ -72,10 +72,10 @@ export function EmployeeComponent({ user }: EmployeeComponentProps) {
 
   // Selected user
   const [selectedUser, setSelectedUser] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    role: "",
+    firstName: '',
+    lastName: '',
+    username: '',
+    role: '',
   });
 
   // Handles checkbox changes
@@ -100,7 +100,7 @@ export function EmployeeComponent({ user }: EmployeeComponentProps) {
   const [isUpdated, setIsUpdated] = useState(false);
   const updateRole = async () => {
     try {
-      await axios.put('http://localhost:150/users/role', selectedUser);
+      await axios.put('http://localhost:150/users/update', selectedUser);
       setIsUpdated(true);
     } catch (error) {
       console.log('Failed to update role: ', error);
@@ -133,30 +133,30 @@ export function EmployeeComponent({ user }: EmployeeComponentProps) {
       ))}
 
     {/* Modal */}
-    <Modal show={isModalOpen} onHide={toggleModal} backdrop="static" keyboard={false} animation={true}>
+    <Modal show={isModalOpen} onHide={toggleModal} backdrop='static' keyboard={false} animation={true}>
       <Modal.Header closeButton>
         <Modal.Title>Update Role for {selectedUser.firstName} {selectedUser.lastName}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form className='d-flex flex-row justify-content-center'>
           <section>
-            <Form.Check className='m-3' type="radio" name="role" value="User" id="userRole" label='User' checked={selectedUser.role === "User"} onChange={handleCheckboxChange}/>
+            <Form.Check className='m-3' type='radio' name='role' value='User' id='userRole' label='User' checked={selectedUser.role === 'User'} onChange={handleCheckboxChange}/>
           </section>
-          {(authenticatedUser.role === 'Employee'  || authenticatedUser.role === 'Manager') && 
+          {(authenticatedUser.role === 'Employee' || authenticatedUser.role === 'Manager')&& 
             <div>
-              <Form.Check className='m-3' type="radio" name="role" value="Employee" id="employeeRole" label='Employee' checked={selectedUser.role === "Employee"} onChange={handleCheckboxChange}/> 
+              <Form.Check className='m-3' type='radio' name='role' value='Employee' id='employeeRole' label='Employee' checked={selectedUser.role === 'Employee'} onChange={handleCheckboxChange}/> 
             </div>
           }
           {authenticatedUser.role === 'Manager' && 
             <div>
-              <Form.Check className='m-3' type="radio" name="role" value="Manager" id="managerRole" label='Manager' checked={selectedUser.role === "Manager"} onChange={handleCheckboxChange}/>
+              <Form.Check className='m-3' type='radio' name='role' value='Manager' id='managerRole' label='Manager' checked={selectedUser.role === 'Manager'} onChange={handleCheckboxChange}/>
             </div>
           }
         </Form>
       </Modal.Body>
       <Modal.Footer>
         {isUpdated && <div className='text-success'>Successfully Updated Role</div>}
-        <Button variant="success" onClick={updateRole}>Save</Button>
+        <Button variant='success' onClick={updateRole}>Save</Button>
       </Modal.Footer>
     </Modal>
     </div>
