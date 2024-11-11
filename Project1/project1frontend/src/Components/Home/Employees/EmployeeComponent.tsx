@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container, Form, Modal, ModalDialog } from 'react-bootstrap';
+import './employee.css'
+import { useAuthentication } from '../../../Context/AuthenticationContext';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Employee Component Props
@@ -29,71 +32,133 @@ interface User {
  * @returns HTML
  */
 export function EmployeeComponent({ user }: EmployeeComponentProps) {
+  // Authentication
+  const navigate = useNavigate();
+  const { AuthenticationData } = useAuthentication();
+  const [authenticatedUser, setAuthenticatedUser] = useState({
+    firstName: "Cyrus",
+    lastName: "De Jesus",
+    username: "cdejesus",
+    role: "Manager",
+  });
+  useEffect(() => {
+    if (!AuthenticationData.isAuthenticated) {
+      // Return user to login when not signed in
+      navigate("/");
+    }
+    else {
+      // Retrieve the current logged in user's info
+      const getUserData = async () => {
+        try {
+          const response = await axios.get("http://localhost:150/users/one/" + AuthenticationData.username);
+          setAuthenticatedUser(response.data);
+        } catch (error) {
+          console.log("Failed to retrieve user: ", error);
+        }
+      };
+      getUserData();
+    }
+  });
+  // End of Authentication
+  
   // User list
   const [userList, setUserList] = useState<User[]>([]);
 
-  // Toggle Modal
+  // Toggle modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  
+
+  // Selected user
+  const [selectedUser, setSelectedUser] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    role: "",
+  });
+
+  // Handles checkbox changes
+  const handleCheckboxChange = (event: { target: { value: string; }; }) => {
+    selectedUser.role = event.target.value;
+  }
+
+  // Retrieve users
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:150/users/all");
+        const response = await axios.get('http://localhost:150/users/all');
         setUserList(response.data);
       } catch (error) {
-        console.log(error);
+        console.log('Failed to retrieve all users: ', error);
       }
     };
     getUsers();
   })
+
+  // Update role
+  const [isUpdated, setIsUpdated] = useState(false);
+  const updateRole = async () => {
+    try {
+      await axios.put('http://localhost:150/users/role', selectedUser);
+      setIsUpdated(true);
+    } catch (error) {
+      console.log('Failed to update role: ', error);
+    }
+  };
   
   // HTML
   return (
-    <div>
+    <div className='d-flex flex-wrap mt-4'>
+      {/* User List */}
       {userList.map((currentUser) => (
-        <Container key={currentUser.username} className='bg-secondary mt-4'> 
-          <div>
-            First Name: {currentUser.firstName}
+        <div key={currentUser.username} className='bg-secondary m-3 p-3 d-flex flex-column custom-cursor custom-container' data-toggle='modal' onClick={() => {toggleModal(); setSelectedUser(currentUser); setIsUpdated(false)}}> 
+          <div className='d-flex'>
+            <h5 className='custom-width'>First Name |</h5>
+            <h5 className='custom-font'>{currentUser.firstName}</h5>
           </div>
-          <div>
-            Last Name: {currentUser.lastName}
+          <div className='d-flex'>
+            <h5 className='custom-width'>Last Name |</h5>
+            <h5 className='custom-font'>{currentUser.lastName}</h5>
           </div>
-          <div>
-            Role: {currentUser.role}
+          <div className='d-flex'>
+            <h5 className='custom-width'>Username |</h5>
+            <h5 className='custom-font'>{currentUser.username}</h5>
           </div>
-
-          {/* Modal Button */}
-          <button type="button" className="btn btn-primary" onClick={toggleModal}>
-            Edit
-          </button>
-          
-          {/* Modal */}
-          {isModalOpen && (
-            <div className="modal fade show" style={{ display: 'block' }} tabIndex={-1} role="dialog" aria-labelledby="userModalTitle" aria-hidden="true">
-              <div className="modal-dialog modal-dialog-centered" role="document">
-                <div className="modal-content">
-                  {/* Modal Header */}
-                  <div className="modal-header">
-                    <h5 className="modal-title text-dark" id="userModalTitle">Editting User</h5>
-                  </div>
-                  {/* Modal Content */}
-                  <div className="modal-body text-dark">
-                    TO DO: Insert A Form Here
-                  </div>
-                  {/* Modal Footer */}
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={toggleModal}>Close</button>
-                    <button type="button" className="btn btn-primary">Save</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </Container>
+          <div className='d-flex'>
+            <h5 className='custom-width'>Role |</h5>
+            <h5 className='custom-font'>{currentUser.role}</h5>
+          </div>
+        </div>
       ))}
+
+    {/* Modal */}
+    <Modal show={isModalOpen} onHide={toggleModal} backdrop="static" keyboard={false} animation={true}>
+      <Modal.Header closeButton>
+        <Modal.Title>Update Role for {selectedUser.firstName} {selectedUser.lastName}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form className='d-flex flex-row justify-content-center'>
+          <section>
+            <Form.Check className='m-3' type="radio" name="role" value="User" id="userRole" label='User' checked={selectedUser.role === "User"} onChange={handleCheckboxChange}/>
+          </section>
+          {(authenticatedUser.role === 'Employee'  || authenticatedUser.role === 'Manager') && 
+            <div>
+              <Form.Check className='m-3' type="radio" name="role" value="Employee" id="employeeRole" label='Employee' checked={selectedUser.role === "Employee"} onChange={handleCheckboxChange}/> 
+            </div>
+          }
+          {authenticatedUser.role === 'Manager' && 
+            <div>
+              <Form.Check className='m-3' type="radio" name="role" value="Manager" id="managerRole" label='Manager' checked={selectedUser.role === "Manager"} onChange={handleCheckboxChange}/>
+            </div>
+          }
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        {isUpdated && <div className='text-success'>Successfully Updated Role</div>}
+        <Button variant="success" onClick={updateRole}>Save</Button>
+      </Modal.Footer>
+    </Modal>
     </div>
   )
 }

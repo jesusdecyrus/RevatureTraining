@@ -1,0 +1,41 @@
+.custom-cursor {
+  cursor: pointer;
+  border: 5px solid rgb(35, 35, 35);
+  border-radius: 10px;
+}
+
+.custom-cursor:hover {
+  border: 5px solid #9FA6B2;
+}
+
+.custom-width {
+  width: 110px;
+  margin-right: 8px;
+  text-align: right;
+}
+
+.custom-container {
+  width: 30% !important;
+}
+
+.custom-font {
+  font-weight: normal;
+  color: #9FA6B2;
+}
+
+.custom-bg {
+  background-color: rgb(35, 35, 35);
+}
+
+.custom-modal {
+  display: block;
+}
+
+.form-check-label {
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+  border-color: black;
+}

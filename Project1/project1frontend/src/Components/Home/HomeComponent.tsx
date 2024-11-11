@@ -40,12 +40,12 @@ export const HomeComponent:React.FC = () => {
   //         const response = await axios.get("http://localhost:150/users/one/" + AuthenticationData.username);
   //         setUser(response.data);
   //       } catch (error) {
-  //         console.log(error);
+  //         console.log("Failed to retrieve user: ", error);
   //       }
   //     };
   //     getUserData();
   //   }
-  // })
+  // });
 
   // HTML
   return(

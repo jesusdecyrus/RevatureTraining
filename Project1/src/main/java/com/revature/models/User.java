@@ -37,7 +37,7 @@ public class User {
 
     /** User's role */
     @Column(nullable = false) // Set Column Constraints
-    private String role = "Employee";
+    private String role = "User";
 
     /** List of Reimbursements */
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL) // (One-to-Many Relationship)

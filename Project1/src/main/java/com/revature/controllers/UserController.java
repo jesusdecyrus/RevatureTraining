@@ -94,4 +94,14 @@ public class UserController {
         return ResponseEntity.ok(userDTOList);
     }
 
+    /**
+     * PUT request to update a user's role
+     * @param userDTO the user DTO
+     * @return response entity
+     */
+    @PutMapping("/role")
+    public ResponseEntity<UserDTO> updateUserRole(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.updateUserRole(userDTO));
+    }
+
 }

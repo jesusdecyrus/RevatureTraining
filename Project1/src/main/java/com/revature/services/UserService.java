@@ -101,4 +101,22 @@ public class UserService {
 
         return userList.stream().map(User::toDTO).collect(Collectors.toList());
     }
+
+    /**
+     * Updates a user's role
+     * @param userDTO the user DTO
+     * @return aa UserDTO
+     */
+    public UserDTO updateUserRole(UserDTO userDTO) {
+        // Error check
+        User u = userDao.findByUsername(userDTO.getUsername());
+        if (u == null || !u.isValid()) {
+            throw new IllegalArgumentException("No user found");
+        }
+
+        // Update role
+        u.setRole(userDTO.getRole());
+        userDao.save(u);
+        return new UserDTO(u.getFirstName(), u.getLastName(), u.getUsername(), u.getRole());
+    }
 }
