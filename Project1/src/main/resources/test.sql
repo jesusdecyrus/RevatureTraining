@@ -5,7 +5,8 @@ VALUES
     (3, 'Emp', 'Loyee', 'employee', 'employee', 'Employee'),
     (4, 'Ben', 'Petruzziello', 'bpetruzziello', 'password', 'Employee'),
     (5, 'Donald', 'Trump', 'dtrump', 'dtrump', 'Employee'),
-    (6, 'Kamala', 'Harris', 'kharris', 'kharris', 'Employee');
+    (6, 'Kamala', 'Harris', 'kharris', 'kharris', 'Employee'),
+    (7, 'Man', 'Ager', 'manager', 'manager', 'Manager');
 
 INSERT INTO reimbursements (reimbursement_id, user_id, amount, description, status)
 VALUES
@@ -14,7 +15,8 @@ VALUES
     (3, 3, 300, 'Changing my entire name due to workplace harassment', 'Pending'),
     (4, 4, 4000, 'Travel expenses to North Korea', 'Approved'),
     (5, 5, 5, 'Taxes', 'Pending'),
-    (6, 6, 20000000, 'Campaigns', 'Denied');
+    (6, 6, 20000000, 'Campaigns', 'Denied'),
+    (7, 7, 70, 'Reimburse for my stolen lunch in the refrigerator', 'Denied');
 
 
 
