@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useContext } from "react";
 
 // Define the type for authentication data
 interface AuthenticationData {
@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthenticationContextType | undefined>(undefin
 // Component
 export const AuthenticationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Setter  
-  const [AuthenticationData, setAuthenticationData] = useState<AuthenticationData>({ username: '', password: '', isAuthenticated: false });
+  const [AuthenticationData, setAuthenticationData] = useState<AuthenticationData>({ username: "", password: "", isAuthenticated: false });
 
     // Updates the authentication data when logging in
     const authenticationLogin = (username: string, password: string) => {
@@ -29,7 +29,7 @@ export const AuthenticationProvider: React.FC<{ children: ReactNode }> = ({ chil
 
     // Updates the authentication data when logging out
     const authenticationLogout = () => {
-      setAuthenticationData({ username: '', password: '', isAuthenticated: false });
+      setAuthenticationData({ username: "", password: "", isAuthenticated: false });
     };
 
     return (
