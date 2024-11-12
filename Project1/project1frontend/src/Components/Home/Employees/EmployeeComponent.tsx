@@ -140,7 +140,9 @@ export function EmployeeComponent({ AuthenticatedUser }: EmployeeComponentProps)
         </Modal.Body>
         <Modal.Footer>
           {isUpdated && <div className='text-success'>Successfully Updated Role</div>}
-          <Button variant='danger' onClick={deleteUser}>Delete Account</Button>
+          { AuthenticatedUser.role === "Manager" && !(AuthenticatedUser.username === selectedUser.username) &&
+            <Button variant='danger' onClick={deleteUser}>Delete Account</Button>  
+          }
           <Button variant='success' onClick={updateRole}>Save</Button>
         </Modal.Footer>
       </Modal>
