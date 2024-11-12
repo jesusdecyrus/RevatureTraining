@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
  * Employee Component Props
  */
 interface EmployeeComponentProps {
-  user: {
+  AuthenticatedUser: {
     firstName: string;
     lastName: string;
     username: string;
@@ -31,36 +31,7 @@ interface User {
  * Employee Component
  * @returns HTML
  */
-export function EmployeeComponent({ user }: EmployeeComponentProps) {
-  // Authentication
-  const navigate = useNavigate();
-  const { AuthenticationData } = useAuthentication();
-  const [authenticatedUser, setAuthenticatedUser] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    role: '',
-  });
-  useEffect(() => {
-    if (!AuthenticationData.isAuthenticated) {
-      // Return user to login when not signed in
-      navigate('/');
-    }
-    else {
-      // Retrieve the current logged in user's info
-      const getUserData = async () => {
-        try {
-          const response = await axios.get('http://localhost:150/users/one/' + AuthenticationData.username);
-          setAuthenticatedUser(response.data);
-        } catch (error) {
-          console.log('Failed to retrieve user: ', error);
-        }
-      };
-      getUserData();
-    }
-  });
-  // End of Authentication
-  
+export function EmployeeComponent({ AuthenticatedUser }: EmployeeComponentProps) {  
   // User list
   const [userList, setUserList] = useState<User[]>([]);
 
@@ -142,12 +113,12 @@ export function EmployeeComponent({ user }: EmployeeComponentProps) {
           <section>
             <Form.Check className='m-3' type='radio' name='role' value='User' id='userRole' label='User' checked={selectedUser.role === 'User'} onChange={handleCheckboxChange}/>
           </section>
-          {(authenticatedUser.role === 'Employee' || authenticatedUser.role === 'Manager')&& 
+          {(AuthenticatedUser.role === 'Employee' || AuthenticatedUser.role === 'Manager')&& 
             <div>
               <Form.Check className='m-3' type='radio' name='role' value='Employee' id='employeeRole' label='Employee' checked={selectedUser.role === 'Employee'} onChange={handleCheckboxChange}/> 
             </div>
           }
-          {authenticatedUser.role === 'Manager' && 
+          {AuthenticatedUser.role === 'Manager' && 
             <div>
               <Form.Check className='m-3' type='radio' name='role' value='Manager' id='managerRole' label='Manager' checked={selectedUser.role === 'Manager'} onChange={handleCheckboxChange}/>
             </div>

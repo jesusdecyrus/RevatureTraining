@@ -1,5 +1,5 @@
 import { Button, Form } from "react-bootstrap"
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 import axios from "axios";
 
@@ -46,7 +46,7 @@ export const SignUpComponent:React.FC = () => {
   return (
     <div className="bg-secondary mt-4 p-5 rounded">
       <h2>Sign Up</h2>
-      <div className='mt-4'>
+      <div className="mt-4">
         <Form.Control
           type="text"
           placeholder="first name"
@@ -55,7 +55,7 @@ export const SignUpComponent:React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className='mt-2'>
+      <div className="mt-2">
         <Form.Control
           type="text"
           placeholder="last name"
@@ -64,7 +64,7 @@ export const SignUpComponent:React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className='mt-2'>
+      <div className="mt-2">
         <Form.Control
           type="text"
           placeholder="username"
@@ -73,7 +73,7 @@ export const SignUpComponent:React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className='mt-2'>
+      <div className="mt-2">
         <Form.Control
           type="password"
           placeholder="password"
@@ -84,7 +84,7 @@ export const SignUpComponent:React.FC = () => {
       </div>
       
       {/* Messages and Button */}
-      <div className={`mt-2 ${message === 'Username Already Exists' ? 'text-danger' : message === 'Successfully Created User' ? 'text-success' : ''}`}>
+      <div className={`mt-2 ${message === "Username Already Exists" ? "text-danger" : message === "Successfully Created User" ? "text-success" : ""}`}>
         {message}
       </div>
       <div>

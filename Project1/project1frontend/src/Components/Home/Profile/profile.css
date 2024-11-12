@@ -3,3 +3,29 @@
   width: auto;
   margin-left: 10px;
 }
+
+.custom-profile1 {
+  width: 120px;
+  height: 30px;
+  margin-right: 20px;
+  text-align: right;
+}
+
+.custom-profile2 {
+  width: 120px;
+  text-align: left;
+  font-weight: normal;
+  color: #9FA6B2;
+  margin-right: 10px;
+}
+
+.custom-ml {
+  margin-left: 1rem;
+}
+
+.custom-password {
+  width: 150px;
+  height: 30px;
+  margin-right: 5px;
+  text-align: right;
+}
