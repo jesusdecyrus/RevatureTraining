@@ -77,6 +77,19 @@ export function EmployeeComponent({ AuthenticatedUser }: EmployeeComponentProps)
       console.log('Failed to update role: ', error);
     }
   };
+
+  // Delete user
+  const deleteUser = async () => {
+    try {
+      const isConfirmed = window.confirm("Are you sure you want to delete this user?");
+      if (isConfirmed) {
+        await axios.delete('http://localhost:150/users/delete', { data: selectedUser });
+        setIsModalOpen(false);
+      } 
+    } catch (error) {
+      console.log('Failed to delete user: ', error);
+    }
+  };
   
   // HTML
   return (
@@ -127,6 +140,7 @@ export function EmployeeComponent({ AuthenticatedUser }: EmployeeComponentProps)
         </Modal.Body>
         <Modal.Footer>
           {isUpdated && <div className='text-success'>Successfully Updated Role</div>}
+          <Button variant='danger' onClick={deleteUser}>Delete Account</Button>
           <Button variant='success' onClick={updateRole}>Save</Button>
         </Modal.Footer>
       </Modal>
