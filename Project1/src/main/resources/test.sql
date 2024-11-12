@@ -9,10 +9,12 @@ VALUES
 
 INSERT INTO reimbursements (reimbursement_id, user_id, amount, description, status)
 VALUES
-    (3, 3, 300, 'Relocation', 'Pending'),
-    (4, 4, 4000, 'Travel expenses to North Korea', 'Pending'),
+    (1, 1, 1000, 'Relocating to Raleigh, NC', 'Approved'),
+    (2, 1, 200, 'Certifications for Python', 'Pending'),
+    (3, 3, 300, 'Changing my entire name due to workplace harassment', 'Pending'),
+    (4, 4, 4000, 'Travel expenses to North Korea', 'Approved'),
     (5, 5, 5, 'Taxes', 'Pending'),
-    (6, 6, 20000000, 'Campaigns', 'Pending');
+    (6, 6, 20000000, 'Campaigns', 'Denied');
 
 
 

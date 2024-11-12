@@ -1,7 +1,6 @@
 package com.revature.models;
 
 import com.revature.models.dtos.ReimbursementDTO;
-import com.revature.models.dtos.UserDTO;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 

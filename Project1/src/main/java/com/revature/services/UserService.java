@@ -6,6 +6,7 @@ import com.revature.models.User;
 import com.revature.models.dtos.UserDTO;
 import com.revature.models.dtos.UserLoginDTO;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -191,6 +192,23 @@ public class UserService {
         // Modify password
         user.setPassword(newPassword);
         return userDao.save(user).toDTO();
+    }
+
+    /**
+     * Deletes a user and returns true if successful
+     * @param userDTO the userDTO
+     * @return true when user is deleted
+     */
+    @Transactional
+    public boolean deleteUser(UserDTO userDTO) {
+        if (userDTO == null || !userDTO.isValid()) {
+            throw new IllegalArgumentException("Invalid user");
+        }
+
+        // Ensures the user exist then deletes
+        getUserByUsername(userDTO.getUsername());
+        userDao.deleteByUsername(userDTO.getUsername());
+        return true;
     }
 
 }

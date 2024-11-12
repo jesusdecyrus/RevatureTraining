@@ -1,9 +1,5 @@
 package com.revature.models.dtos;
 
-import com.revature.models.Reimbursement;
-
-import java.util.List;
-
 /**
  * UserLogin Data Transfer Object
  * @author Cyrus De Jesus

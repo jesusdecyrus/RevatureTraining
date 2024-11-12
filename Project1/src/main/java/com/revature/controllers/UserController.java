@@ -134,4 +134,15 @@ public class UserController {
     public ResponseEntity<UserDTO> updatePassword(@PathVariable String username, @PathVariable String newPassword) {
         return ResponseEntity.ok(userService.updatePassword(username, newPassword));
     }
+
+    /**
+     * DELETE request to delete a user
+     * @param userDTO the user DTO
+     * @return response entity
+     */
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.deleteUser(userDTO));
+    }
+
 }

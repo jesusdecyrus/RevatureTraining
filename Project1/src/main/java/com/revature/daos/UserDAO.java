@@ -26,4 +26,10 @@ public interface UserDAO extends JpaRepository<User, Integer> {
      */
     User findByUsernameAndPassword(String username, String password);
 
+    /**
+     * Deletes a user given the user's username
+     * @param username the user's username
+     */
+    void deleteByUsername(String username);
+
 }
