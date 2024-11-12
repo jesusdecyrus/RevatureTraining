@@ -1,0 +1,30 @@
+.left {
+  text-align: left;
+}
+
+.bbw {
+  border-bottom: 1px solid white;
+}
+
+.grid-titles {
+  font-weight: bolder;
+  font-size: 1.1em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.custom-round {
+  border-radius: 5px;
+}
+
+.custom-select {
+  cursor: pointer;
+  border: 5px solid rgb(35, 35, 35);
+  border-radius: 5px;
+}
+
+.custom-select:hover {
+  border: 5px solid #9FA6B2;
+}

@@ -103,33 +103,33 @@ export function EmployeeComponent({ AuthenticatedUser }: EmployeeComponentProps)
         </div>
       ))}
 
-    {/* Modal */}
-    <Modal show={isModalOpen} onHide={toggleModal} backdrop='static' keyboard={false} animation={true}>
-      <Modal.Header closeButton>
-        <Modal.Title>Update Role for {selectedUser.firstName} {selectedUser.lastName}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form className='d-flex flex-row justify-content-center'>
-          <section>
-            <Form.Check className='m-3' type='radio' name='role' value='User' id='userRole' label='User' checked={selectedUser.role === 'User'} onChange={handleCheckboxChange}/>
-          </section>
-          {(AuthenticatedUser.role === 'Employee' || AuthenticatedUser.role === 'Manager')&& 
-            <div>
-              <Form.Check className='m-3' type='radio' name='role' value='Employee' id='employeeRole' label='Employee' checked={selectedUser.role === 'Employee'} onChange={handleCheckboxChange}/> 
-            </div>
-          }
-          {AuthenticatedUser.role === 'Manager' && 
-            <div>
-              <Form.Check className='m-3' type='radio' name='role' value='Manager' id='managerRole' label='Manager' checked={selectedUser.role === 'Manager'} onChange={handleCheckboxChange}/>
-            </div>
-          }
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        {isUpdated && <div className='text-success'>Successfully Updated Role</div>}
-        <Button variant='success' onClick={updateRole}>Save</Button>
-      </Modal.Footer>
-    </Modal>
+      {/* Modal */}
+      <Modal show={isModalOpen} onHide={toggleModal} backdrop='static' keyboard={false} animation={true}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Role for {selectedUser.firstName} {selectedUser.lastName}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form className='d-flex flex-row justify-content-center'>
+            <section>
+              <Form.Check className='m-3' type='radio' name='role' value='User' id='userRole' label='User' checked={selectedUser.role === 'User'} onChange={handleCheckboxChange}/>
+            </section>
+            {(AuthenticatedUser.role === 'Employee' || AuthenticatedUser.role === 'Manager')&& 
+              <div>
+                <Form.Check className='m-3' type='radio' name='role' value='Employee' id='employeeRole' label='Employee' checked={selectedUser.role === 'Employee'} onChange={handleCheckboxChange}/> 
+              </div>
+            }
+            {AuthenticatedUser.role === 'Manager' && 
+              <div>
+                <Form.Check className='m-3' type='radio' name='role' value='Manager' id='managerRole' label='Manager' checked={selectedUser.role === 'Manager'} onChange={handleCheckboxChange}/>
+              </div>
+            }
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          {isUpdated && <div className='text-success'>Successfully Updated Role</div>}
+          <Button variant='success' onClick={updateRole}>Save</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

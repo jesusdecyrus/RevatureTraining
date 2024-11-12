@@ -68,14 +68,14 @@ export const HomeComponent:React.FC = () => {
             </li>
           </ul>
         </div>
-        <button className="btn btn-outline-dark my-2 my-sm-0" onClick={authenticationLogout}>Logout</button>
+        <button className="btn btn-dark my-2 my-sm-0" onClick={authenticationLogout}>Logout</button>
       </nav>
 
       {/* Reimbursement, Employee, Profile Components */}
       <Container>
         {component === "Reimbursements" && (
           <div>
-            <ReimbursementComponent></ReimbursementComponent>
+            <ReimbursementComponent AuthenticatedUser={authenticatedUser}></ReimbursementComponent>
           </div>
         )}
         {component === "Employees" && (
