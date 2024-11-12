@@ -44,7 +44,7 @@ export const SignUpComponent:React.FC = () => {
       });
     } catch (error) {
       console.log("Failed to sign up: ", error);
-      setMessage("Username Already Exists");
+      setMessage("Invalid User");
     }
   }
 
@@ -89,7 +89,7 @@ export const SignUpComponent:React.FC = () => {
       </div>
       
       {/* Messages and Button */}
-      <div className={`mt-2 ${message === "Username Already Exists" ? "text-danger" : message === "Successfully Created User" ? "text-success" : ""}`}>
+      <div className={`mt-2 ${message === "Invalid User" ? "text-danger" : message === "Successfully Created User" ? "text-success" : ""}`}>
         {message}
       </div>
       <div>

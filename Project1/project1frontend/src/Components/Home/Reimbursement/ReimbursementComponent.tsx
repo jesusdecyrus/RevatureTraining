@@ -147,7 +147,7 @@ export function ReimbursementComponent({ AuthenticatedUser }: ReimbursementCompo
   // Request Reimbursement
   const [requestReimbursement, setRequestReimbursement] = useState({
     description: "",
-    amount: null,
+    amount: 0,
     status: "Pending",
     username: AuthenticationData.username,
   });
@@ -163,7 +163,7 @@ export function ReimbursementComponent({ AuthenticatedUser }: ReimbursementCompo
       setIsRequested(true);
       setRequestReimbursement({
         description: "",
-        amount: null,
+        amount: 0,
         status: "Pending",
         username: AuthenticationData.username,
       });
@@ -337,7 +337,7 @@ export function ReimbursementComponent({ AuthenticatedUser }: ReimbursementCompo
                 type="number"
                 placeholder="enter amount"
                 name="amount"
-                value={requestReimbursement?.amount ?? ""}
+                value={requestReimbursement?.amount}
                 onChange={handleReimbursementChange}
                 className="custom-form"
               />
