@@ -36,7 +36,12 @@ export const SignUpComponent:React.FC = () => {
       // POST request to the signup endpoint
       await axios.post("http://localhost:150/users/signup", user);
       setMessage("Successfully Created User");
-
+      setUser({
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+      });
     } catch (error) {
       console.log("Failed to sign up: ", error);
       setMessage("Username Already Exists");
