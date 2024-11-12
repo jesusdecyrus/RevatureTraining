@@ -9,4 +9,12 @@ import org.springframework.stereotype.Repository;
  * @author Cyrus De Jesus
  */
 @Repository
-public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> {}
+public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> {
+
+    /**
+     * Finds reimbursement given its reimbursement id
+     * @param reimbursementId the reimbursement id
+     * @return the reimbursement
+     */
+    Reimbursement findByReimbursementId(int reimbursementId);
+}

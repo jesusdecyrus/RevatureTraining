@@ -5,6 +5,7 @@ import com.revature.daos.UserDAO;
 import com.revature.models.dtos.ReimbursementDTO;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
+import com.revature.models.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,28 +37,28 @@ public class ReimbursementService {
         this.userDAO = userDAO;
     }
 
-    /**
-     * Inserts the reimbursement to the database
-     * @param reimbursementDTO the reimbursement to add
-     * @return the reimbursement added
-     */
-    public ReimbursementDTO insertReimbursement(ReimbursementDTO reimbursementDTO) {
-        if (reimbursementDTO == null || !reimbursementDTO.isValid()) {
-            throw new IllegalArgumentException("Invalid reimbursement");
-        }
-
-        // Check for valid user
-        Optional<User> user = userDAO.findById(reimbursementDTO.getUserId());
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException("No user found with id: " + reimbursementDTO.getUserId());
-        }
-        else {
-            // User found so add reimbursement
-            Reimbursement reimbursement = reimbursementDAO.save(new Reimbursement(reimbursementDTO.getReimbursementId(), reimbursementDTO.getDescription(), reimbursementDTO.getAmount(), reimbursementDTO.getStatus(), user.get()));
-            reimbursementDTO.setReimbursementId(reimbursement.getReimbursementId());
-            return reimbursementDTO;
-        }
-    }
+//    /**
+//     * Inserts the reimbursement to the database
+//     * @param reimbursementDTO the reimbursement to add
+//     * @return the reimbursement added
+//     */
+//    public ReimbursementDTO insertReimbursement(ReimbursementDTO reimbursementDTO) {
+//        if (reimbursementDTO == null || !reimbursementDTO.isValid()) {
+//            throw new IllegalArgumentException("Invalid reimbursement");
+//        }
+//
+//        // Check for valid user
+//        Optional<User> user = userDAO.findByUsername(reimbursementDTO.getUsername());
+//        if (user.isEmpty()) {
+//            throw new IllegalArgumentException("No user found with id: " + reimbursementDTO.getUsername());
+//        }
+//        else {
+//            // User found so add reimbursement
+//            Reimbursement reimbursement = reimbursementDAO.save(new Reimbursement(reimbursementDTO.getReimbursementId(), reimbursementDTO.getDescription(), reimbursementDTO.getAmount(), reimbursementDTO.getStatus(), user.get()));
+//            reimbursementDTO.setReimbursementId(reimbursement.getReimbursementId());
+//            return reimbursementDTO;
+//        }
+//    }
 
     /**
      * Returns all reimbursements from the database
@@ -70,11 +71,37 @@ public class ReimbursementService {
 
     /**
      * Returns owned reimbursements from the database
+     * @param id the user's id
      * @return owned reimbursements from the database
      */
-    public List<ReimbursementDTO> getOwnedReimbursements(String username) {
+    public List<ReimbursementDTO> getOwnedReimbursements(int id) {
         List<Reimbursement> reimbursementList = reimbursementDAO.findAll();
-        return reimbursementList.stream().filter(reimbursement -> reimbursement.getUser().getUsername().equals(username)).map(Reimbursement::toDTO).collect(Collectors.toList());
+        return reimbursementList.stream().filter(reimbursement -> reimbursement.getUser().getUserId() == id).map(Reimbursement::toDTO).collect(Collectors.toList());
+    }
+
+    /**
+     * Update a reimbursement's status
+     * @param reimbursementId the reimbursement id
+     * @param status the reimbursement status
+     * @return a reimbursement DTO
+     */
+    public ReimbursementDTO updateReimbursementStatus(int reimbursementId, String status) {
+        if (reimbursementId <= 0) {
+            throw new IllegalArgumentException("Invalid reimbursement id");
+        }
+        if (status == null || status.isEmpty()) {
+            throw new IllegalArgumentException("Invalid status");
+        }
+
+        // Retrieve reimbursement
+        Reimbursement reimbursement = reimbursementDAO.findByReimbursementId(reimbursementId);
+        if (reimbursement == null) {
+            throw new IllegalArgumentException("No reimbursement found");
+        }
+
+        // Modify reimbursement
+        reimbursement.setStatus(status);
+        return reimbursementDAO.save(reimbursement).toDTO();
     }
 
 }

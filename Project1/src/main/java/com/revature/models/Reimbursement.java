@@ -152,6 +152,6 @@ public class Reimbursement {
      * @return the ReimbursementDTO
      */
     public ReimbursementDTO toDTO() {
-        return new ReimbursementDTO(getReimbursementId(), getDescription(), getAmount(), getStatus(), getUser().getUserId());
+        return new ReimbursementDTO(getReimbursementId(), getDescription(), getAmount(), getStatus(), getUser().getUsername());
     }
 }

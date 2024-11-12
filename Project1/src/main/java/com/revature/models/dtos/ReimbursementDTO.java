@@ -20,8 +20,8 @@ public class ReimbursementDTO {
     /** Reimbursement status */
     private String status;
 
-    /** Reimbursement user id to link to user */
-    private int userId;
+    /** Reimbursement username to link to user */
+    private String username;
 
     /**
      * Default Constructor
@@ -35,12 +35,12 @@ public class ReimbursementDTO {
      * @param amount Reimbursement's amount
      * @param status Reimbursement's status
      */
-    public ReimbursementDTO(int reimbursementId, String description, int amount, String status, int userId) {
+    public ReimbursementDTO(int reimbursementId, String description, int amount, String status, String username) {
         setReimbursementId(reimbursementId);
         setDescription(description);
         setAmount(amount);
         setStatus(status);
-        setUserId(userId);
+        setUsername(username);
     }
 
     /**
@@ -80,12 +80,12 @@ public class ReimbursementDTO {
     }
 
     /**
-     * Returns the value of the userId
+     * Returns the value of the username
      *
-     * @return userId the current value of userId
+     * @return username the current value of username
      */
-    public int getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -125,12 +125,12 @@ public class ReimbursementDTO {
     }
 
     /**
-     * Sets the userId
+     * Sets the username
      *
-     * @param userId the new value to set for userId
+     * @param username the new value to set for username
      */
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -142,7 +142,7 @@ public class ReimbursementDTO {
         return description != null && !description.isEmpty() &&
                 amount > 0 &&
                 status != null && !status.isEmpty() &&
-                userId > 0;
+                username != null && !username.isEmpty();
     }
 
 }
