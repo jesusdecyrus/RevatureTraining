@@ -124,10 +124,57 @@ public class UserService {
         // Update user
         u.setFirstName(userDTO.getFirstName());
         u.setLastName(userDTO.getLastName());
-        u.setUsername(userDTO.getUsername());
         u.setRole(userDTO.getRole());
 
         userDao.save(u);
         return new UserDTO(u.getFirstName(), u.getLastName(), u.getUsername(), u.getRole());
     }
+
+    /**
+     * Update a user's username
+     * @param oldUsername the old username
+     * @param newUsername the new username
+     * @return a userDTO
+     */
+    public UserDTO updateUsername(String oldUsername, String newUsername) {
+        if (oldUsername == null || oldUsername.isEmpty()) {
+            throw new IllegalArgumentException("Invalid username");
+        }
+        if (newUsername == null || newUsername.isEmpty()) {
+            throw new IllegalArgumentException("Invalid new username");
+        }
+
+        // Retrieve user
+        User user = userDao.findByUsername(oldUsername);
+        if (user == null || !user.isValid()) {
+            throw new IllegalArgumentException("No user found");
+        }
+
+        // Modify username
+        user.setUsername(newUsername);
+        return userDao.save(user).toDTO();
+    }
+
+    /**
+     * Update a user's password
+     * @param username the username
+     * @param newPassword the new password
+     * @return a userDTO
+     */
+    public UserDTO updatePassword(String username, String newPassword) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Invalid username");
+        }
+
+        // Retrieve user
+        User user = userDao.findByUsername(username);
+        if (user == null || !user.isValid()) {
+            throw new IllegalArgumentException("No user found");
+        }
+
+        // Modify password
+        user.setPassword(newPassword);
+        return userDao.save(user).toDTO();
+    }
+
 }

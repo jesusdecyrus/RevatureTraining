@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -95,13 +94,34 @@ public class UserController {
     }
 
     /**
-     * PUT request to update a user's role
+     * PUT request to update a user
      * @param userDTO the user DTO
      * @return response entity
      */
     @PutMapping("/update")
-    public ResponseEntity<UserDTO> updateUserRole(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.updateUser(userDTO));
     }
 
+    /**
+     * PUT request to update a user's username
+     * @param oldUsername the old username
+     * @param newUsername the new username
+     * @return response entity
+     */
+    @PutMapping("/update/username/{oldUsername}/{newUsername}")
+    public ResponseEntity<UserDTO> updateUsername(@PathVariable String oldUsername, @PathVariable String newUsername) {
+        return ResponseEntity.ok(userService.updateUsername(oldUsername, newUsername));
+    }
+
+    /**
+     * PUT request to update a user's password
+     * @param username the user's username
+     * @param newPassword the new password
+     * @return response entity
+     */
+    @PutMapping("/update/password/{username}/{newPassword}")
+    public ResponseEntity<UserDTO> updatePassword(@PathVariable String username, @PathVariable String newPassword) {
+        return ResponseEntity.ok(userService.updatePassword(username, newPassword));
+    }
 }
