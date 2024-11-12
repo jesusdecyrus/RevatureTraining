@@ -68,14 +68,19 @@ export const HomeComponent:React.FC = () => {
             </li>
           </ul>
         </div>
-        <button className="btn btn-dark my-2 my-sm-0" onClick={authenticationLogout}>Logout</button>
+        <button className="btn btn-dark my-2 my-sm-0" onClick={() => {authenticationLogout(); navigate("/");}}>Logout</button>
       </nav>
 
       {/* Reimbursement, Employee, Profile Components */}
       <Container>
-        {component === "Reimbursements" && (
+        {component === "Reimbursements" && (authenticatedUser.role == "Employee" || authenticatedUser.role == "Manager") && (
           <div>
             <ReimbursementComponent AuthenticatedUser={authenticatedUser}></ReimbursementComponent>
+          </div>
+        )}
+        {component === "Reimbursements" && authenticatedUser.role == "User" && (
+          <div className="text-danger mt-5">
+            <h4>Please Contact a Manager to Access Reimbursements</h4>
           </div>
         )}
         {component === "Employees" && (
