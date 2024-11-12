@@ -96,6 +96,22 @@ public class UserService {
     }
 
     /**
+     * Returns a user id
+     * @param username the user's username
+     * @return a user id
+     */
+    public int getIdByUsername(String username) {
+        User u = userDao.findByUsername(username);
+
+        // Error check
+        if (u == null || !u.isValid()) {
+            throw new IllegalArgumentException("No user found");
+        }
+
+        return u.getUserId();
+    }
+
+    /**
      * Returns all users from the database
      * @return all users from the database
      */

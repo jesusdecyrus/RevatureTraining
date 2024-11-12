@@ -80,6 +80,16 @@ public class UserController {
     }
 
     /**
+     * GET request to a get a user's id
+     * @param username the user's username
+     * @return response entity
+     */
+    @GetMapping("/id/{username}")
+    public ResponseEntity<?> getIdByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.getIdByUsername(username));
+    }
+
+    /**
      * GET request to get all users
      * @return response entity
      */
