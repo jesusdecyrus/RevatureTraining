@@ -1,6 +1,5 @@
 package com.revature.controllers;
 
-import com.revature.aspects.ManagerOnly;
 import com.revature.models.User;
 import com.revature.models.dtos.UserDTO;
 import com.revature.models.dtos.UserLoginDTO;
@@ -93,7 +92,6 @@ public class UserController {
      * GET request to get all users
      * @return response entity
      */
-    @ManagerOnly
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         // Retrieve list from the service

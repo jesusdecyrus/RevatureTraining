@@ -8,6 +8,7 @@ import com.revature.models.dtos.UserLoginDTO;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +24,17 @@ public class UserService {
     /** UserDAO Instance */
     private final UserDAO userDao;
 
+    /** Password Encoder */
+    private PasswordEncoder passwordEncoder;
+
     /**
      * UserService Constructor
      * @param userDAO the UserDAO
      */
     @Autowired // Constructor Injection
-    public UserService(UserDAO userDAO) {
+    public UserService(UserDAO userDAO, PasswordEncoder passwordEncoder) {
         this.userDao = userDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -48,6 +53,9 @@ public class UserService {
         if (u != null) {
             throw new IllegalArgumentException("Username already exists");
         }
+
+        // Encrypt password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // .save() for JPA POST and PUT
         return userDao.save(user);
