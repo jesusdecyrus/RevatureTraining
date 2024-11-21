@@ -4,9 +4,13 @@ import com.revature.models.User;
 import com.revature.models.dtos.UserDTO;
 import com.revature.models.dtos.UserLoginDTO;
 import com.revature.services.UserService;
+import com.revature.utils.JwtTokenUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,16 +27,21 @@ public class UserController {
     /** UserService Instance */
     private final UserService userService;
 
-    /** The HTTP Session */
-    public static HttpSession session = null;
+    /** JWT Token Util */
+    private final JwtTokenUtil jwtTokenUtil;
+
+    /** Authentication Manager */
+    private final AuthenticationManager authenticationManager;
 
     /**
      * UserController Constructor
      * @param userService the UserService
      */
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.authenticationManager = authenticationManager;
     }
 
     /**
@@ -57,11 +66,25 @@ public class UserController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UserLoginDTO userLoginDTO, HttpSession session) {
-        // Retrieve user from the service
-        UserDTO userDTO = userService.login(userLoginDTO, session);
+        try {
+            // Check username and password
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword())
+            );
 
-        // Status code
-        return ResponseEntity.ok(userDTO);
+            // Build the user after validation
+            User validatedUser = (User) authentication.getPrincipal();
+
+            // Generate a JWT
+            String token = jwtTokenUtil.generateAccessToken(validatedUser);
+
+            // Return JWT
+            return ResponseEntity.ok().body(token);
+        } catch (Exception e) {
+            // Status code
+            e.printStackTrace();
+            return ResponseEntity.status(401).body("Invalid Credentials");
+        }
     }
 
     /**
